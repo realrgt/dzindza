@@ -1,0 +1,28 @@
+
+<div class="container mt-5">
+  <div class="card p-5">
+
+    <h2 class="text-muted mb-4">A quem vamos entregar</h2>
+
+    <form class="form">
+
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="Endereco de partida">
+      </div>
+
+      <hr class="my-4">
+
+      <div class="form-group">
+        <input class="form-control mb-3" type="text" placeholder="Endereco de chegada">
+        <input class="form-control mb-3" type="text" placeholder="Nome do receptor">
+        <input class="form-control" type="text" placeholder="Contado do receptor">
+      </div>
+
+      <button type="button" class="btn btn-outline-secondary" [routerLink]="['']">Voltar</button>
+      {{ " " }}
+      <button type="button" class="btn btn-primary" [routerLink]="['/s2']">Próximo</button>
+
+    </form>
+
+  </div>
+</div>

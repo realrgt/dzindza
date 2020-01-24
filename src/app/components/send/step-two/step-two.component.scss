@@ -1,0 +1,79 @@
+.f-powers {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  // background-color: #ece9e9;
+}
+
+.category {
+  background-color: #ece9e9;
+  flex-direction: row;
+}
+
+.lane {
+  background-color: #cdcdcd;
+  margin: 0;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+span.arrow-left,span.arrow-right{
+  display: block;
+  position: absolute;
+  background-color: black;
+  opacity: 0.7;
+  color:white;
+  line-height: 50%;
+  z-index: 2;
+  cursor: pointer;
+  height:200px;
+}
+span.arrow-left{
+  left: 0px;
+}
+span.arrow-right{
+  right: 0px;
+}
+.card-cont {
+  margin: 10px;
+}
+.card {
+  width: 170px;
+  box-shadow: 2px 2px 2px #555;
+  border-radius: 5px;
+  height: 220px;
+  background-color: white;
+}
+
+.fas.fa-box-open:nth-child(1) {
+  font-size: 30px;
+  margin-top: 95px;
+}
+.fas.fa-box-open:nth-child(2) {
+  font-size: 55px;
+  margin-top: 73px;
+}
+.fas.fa-box-open:nth-child(3) {
+  font-size: 80px;
+  margin-top: 50px;
+}
+.fas.fa-box-open:nth-child(4) {
+  font-size: 150px;
+  margin-top: -15px;
+}
+
+.form-control-range {
+  width: 380px;
+  margin-left: 50px;
+}
+
+.icon-pessoa {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: rgb(146, 143, 143);
+}
