@@ -1,78 +1,61 @@
-<div class="container pb-3">
-  <div class="lane mt-4" #line>
-    <span class="arrow-left" (click)="scrollLeft(line)">left</span>
-    <span class="arrow-right" (click)="scrollRight(line)">right</span>
-    <div class="card-cont" *ngFor="let estado of estados; let i = index">
-      <div *ngIf="!estadoSelected" class="card" (click)="selectEstado(estado)">
-        {{ estado.nome }}
-      </div>
+<div class="container pb-4">
+
+  <app-stepper></app-stepper>
+
+  <h3 class="animated zoomIn text-muted">
+    O quê vai enviar?
+  </h3>
+
+  <div class="scrolling-wrapper mt-3 animated shake" *ngIf="!estadoSelected">
+    <div class="card p-3" *ngFor="let estado of estados" (click)="selectEstado(estado)">
+      <h5>{{ estado.nome }}</h5>
     </div>
-    <br />
-    <div class="card-cont" *ngFor="let cidade of cidades; let i = index">
-      <div *ngIf="!cidadeSelected" class="card" (click)="fillCity(cidade)">
-        {{ cidade.nome }}
-      </div>
-    </div>
-    <br />
   </div>
 
-  <div
-    [formGroup]="form"
-    *ngIf="objectTest !== null && objectTest !== undefined"
-    class="row mt-3 p-3"
-  >
-    <button
-      type="button"
-      class="btn btn-success col-sm-2 p-1"
-      (click)="addCategory()"
-    >
+  <div class="scrolling-wrapper mt-3 animated shake" *ngIf="!cidadeSelected">
+    <div class="card p-3" *ngFor="let cidade of cidades" (click)="fillCity(cidade)">
+      <h6>{{ cidade.nome }}</h6>
+    </div>
+  </div>
+
+  <div [formGroup]="form" *ngIf="objectTest !== null && objectTest !== undefined" class="row mt-3 p-3">
+    <button type="button" class="btn btn-success col-sm-2 p-1" (click)="addCategory()">
       Adicionar
     </button>
-    <button
-      type="button"
-      class="btn btn-outline-danger col-sm-2 p-1"
-      (click)="removeProduct()"
-    >
+    <button type="button" class="btn btn-outline-danger col-sm-2 p-1" (click)="removeProduct()">
       Modificar Produto
     </button>
-    <input
-      class="form-control col-sm-8"
-      type="text"
-      placeholder="Produto"
-      formControlName="category"
-    />
+    <input class="form-control col-sm-8" type="text" placeholder="Produto" formControlName="category" />
   </div>
 
-  <span>Produtos: </span> 
+  <span class="text-muted">Produtos: </span>
   <span *ngFor="let item of categories" class="text-center text-muted">
     {{ item + ', ' }}
   </span>
 
-  <div class="row mt-4">
-    <div class="icon-pessoa mt-n1 ml-5"></div>
-    <input
-      class="form-control col-sm-10 ml-3"
-      type="text"
-      placeholder="Detalhes da encomenda"
-    />
-  </div>
+  <div class="animated zoomIn delay">
+    <div class="row mt-4">
+      <div class="icon-pessoa mt-n2 ml-5">
+        <i class="fas fa-tasks"></i>
+      </div>
+      <input class="form-control col-sm-10 ml-3" type="text" placeholder="Detalhes da encomenda" />
+    </div>
 
-  <div class="row mt-5 ml-5">
-    <i class="fas fa-box-open"></i>
-    <i class="fas fa-box-open"></i>
-    <i class="fas fa-box-open"></i>
-    <i class="fas fa-box-open"></i>
-  </div>
-  <input
-    type="range"
-    class="form-control-range"
-    id="formControlRange"
-    step="2"
-  />
+    <div class="row mt-5 ml-5">
+      <i class="fas fa-box-open"></i>
+      <i class="fas fa-box-open"></i>
+      <i class="fas fa-box-open"></i>
+      <i class="fas fa-box-open"></i>
+    </div>
+    <input type="range" class="form-control-range" id="formControlRange" step="2" />
 
-  <div class="mt-4 px-3">
-    <button type="button" class="btn btn-outline-secondary" [routerLink]="['/s1']">Voltar</button>
-    <button type="button" class="btn btn-primary" [routerLink]="['/final']">Continuar</button>
+    <div class="mt-4 px-3">
+      <button type="button" class="btn btn-outline-secondary" [routerLink]="['/intro-step']">
+        Voltar
+      </button>
+      <button type="button" class="btn btn-success" [routerLink]="['/final']">
+        Continuar
+      </button>
+    </div>
   </div>
-
 </div>

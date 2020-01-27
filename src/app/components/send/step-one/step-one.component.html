@@ -1,28 +1,94 @@
-
-<div class="container mt-5">
-  <div class="card p-5">
-
-    <h2 class="text-muted mb-4">A quem vamos entregar</h2>
-
-    <form class="form">
-
-      <div class="form-group">
-        <input class="form-control" type="text" placeholder="Endereco de partida">
-      </div>
-
-      <hr class="my-4">
-
-      <div class="form-group">
-        <input class="form-control mb-3" type="text" placeholder="Endereco de chegada">
-        <input class="form-control mb-3" type="text" placeholder="Nome do receptor">
-        <input class="form-control" type="text" placeholder="Contado do receptor">
-      </div>
-
-      <button type="button" class="btn btn-outline-secondary" [routerLink]="['']">Voltar</button>
-      {{ " " }}
-      <button type="button" class="btn btn-primary" [routerLink]="['/s2']">Próximo</button>
-
-    </form>
-
+<div class="container">
+  <!-- stepper -->
+  <app-stepper></app-stepper>
+  <div class="row">
+    <p class="animated zoomIn p-intro p-one">A quem vamos entregar?</p>
+    <br />
+    <br />
   </div>
+  <form class="form-group mt-5">
+    <div class="row justify-content-center">
+      <div class="col-10 mb-4 animated fadeIn div-delay">
+        <input type="text" class="form-control input-box" placeholder="Endereço de partida" (focus)="onFocusFrom()" />
+        <!-- map selection option -->
+        <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon"
+          (click)="onSelectFrom()">
+          <a class="text-dark"><span class="fa fa-map-marker-alt fa-lg"></span>
+            <span style="position: absolute; left: 70px;">
+              ou seleccione pelo mapa...
+            </span>
+          </a>
+        </div>
+        <!-- google map here! -->
+        <div class="google-map mt-3 animated fadeIn" *ngIf="mapFrom"></div>
+        <!-- google map location select -->
+        <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton"
+          (click)="onFromLocationSelect()">
+          É aqui!
+        </button>
+        <br />
+        <!-- separating the addresses -->
+        <hr />
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10 mb-4 animated fadeIn div-delay">
+        <input type="text" class="form-control input-box" placeholder="Endereço do Receptor" (focus)="onFocusTo()" />
+        <!-- map selection option -->
+        <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapToIcon"
+          (click)="onSelectTo()">
+          <a class="text-dark"><span class="far fa-map fa-lg"></span>
+            <span style="position: absolute; left: 70px;">
+              ou seleccione pelo mapa...
+            </span>
+          </a>
+        </div>
+        <!-- google map here! -->
+        <div class="google-map mt-3  animated fadeIn" *ngIf="mapTo"></div>
+        <!-- google map location select -->
+        <button class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton"
+          (click)="onToLocationSelect()">
+          É aqui!
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10 mb-4 animated fadeIn div-delay">
+        <select class="form-control input-box" placeholder="Onde levar">
+          <option value="" active> Onde levar </option>
+          <option value=""> Aeroporto </option>
+          <option value=""> Casa </option>
+          <option value=""> Paragem </option>
+          <option value=""> Empresa </option>
+          <option value=""> Lugar Público </option>
+        </select>
+        <span class="fa fa-map-marker-alt input-icon"></span>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10 mb-4 animated fadeIn div-delay">
+        <input type="text" class="form-control input-box" placeholder="Nome do Receptor" />
+        <span class="far fa-user input-icon"></span>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10 mb-4 animated fadeIn div-delay">
+        <input type="text" class="form-control input-box" placeholder="Contacto do Receptor" />
+        <span class="fa fa-phone-alt input-icon"></span>
+      </div>
+    </div>
+    <!-- button -->
+    <div class="row justify-content-center">
+      <div class="col-5 animated fadeIn div-delay">
+        <button class="btn-light form-control" (click)="goBack()">
+          Voltar
+        </button>
+      </div>
+      <div class="col-5 animated fadeIn div-delay">
+        <button class="btn-success form-control" [routerLink]="['/step-two']">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

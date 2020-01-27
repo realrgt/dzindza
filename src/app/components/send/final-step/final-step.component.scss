@@ -2,10 +2,6 @@
   font-weight: bold;
 }
 
-.spacing {
-  padding: 30px;
-}
-
 #phone-area {
   display: flex;
   flex-direction: row;
@@ -25,4 +21,12 @@
 .cell-icon {
   margin-left: 17px;
   margin-top: 13px;
+}
+
+.delay-one {
+  animation-delay: .2s;
+}
+
+.delay-two {
+  animation-delay: .1s;
 }

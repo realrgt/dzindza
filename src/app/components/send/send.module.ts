@@ -14,13 +14,15 @@ import { FinalStepComponent } from './final-step/final-step.component';
 // angular materil imports
 // import { ScrollingModule } from '@angular/cdk/scrolling';
 // import { MatCardModule } from '@angular/material/card';
+import { StepperComponent } from '../../shared/stepper/stepper.component';
 
 @NgModule({
   declarations: [
     IntroStepComponent,
     StepOneComponent,
     StepTwoComponent,
-    FinalStepComponent
+    FinalStepComponent,
+    StepperComponent
   ],
   imports: [
     CommonModule,

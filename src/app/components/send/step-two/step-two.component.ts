@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 // angular imports
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { tap, takeWhile, map, switchMap } from 'rxjs/operators';
-import { interval, of, empty } from 'rxjs';
+import { tap, map, switchMap } from 'rxjs/operators';
+import { of, empty } from 'rxjs';
 
-import { TeamsService } from 'src/app/services/teams.service';
 import { TestService } from 'src/app/services/test.service';
 import { Cidade } from 'src/app/models/cidade';
 import { Estado } from 'src/app/models/estado';
-
 
 @Component({
   selector: 'app-step-two',
@@ -20,67 +18,30 @@ import { Estado } from 'src/app/models/estado';
 })
 export class StepTwoComponent implements OnInit {
 
-  teams = [];
   estadoSelected = false;
   cidadeSelected = false;
-  objectTest: Cidade = null;
-
-  categories: any = [];
+  objectTest = null;
 
   form: FormGroup;
 
   cidades: Cidade[];
   estados: Estado[];
+  categories: any = [];
 
   constructor(
-    private teamService: TeamsService,
     private testService: TestService,
     private http: HttpClient,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.getTeams();
-
-    this.testService.getEstados().subscribe(
-      estados => this.estados = estados
-    );
+    this.testService
+      .getEstados()
+      .subscribe(estados => (this.estados = estados));
 
     this.form = this.formBuilder.group({
       category: [null]
     });
-    // this.testService.getCidades(8).subscribe();
-
-  }
-
-  getTeams() {
-    this.teams = this.teamService.getTeams();
-  }
-
-  // another code
-
-  scrollLeft(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap(value => el.scrollLeft -= (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
-  }
-
-  scrollRight(el: Element) {
-    const animTimeMs = 400;
-    const pixelsToMove = 315;
-    const stepArray = [0.001, 0.021, 0.136, 0.341, 0.341, 0.136, 0.021, 0.001];
-    interval(animTimeMs / 8)
-      .pipe(
-        takeWhile(value => value < 8),
-        tap(value => el.scrollLeft += (pixelsToMove * stepArray[value])),
-      )
-      .subscribe();
   }
 
   /**
@@ -90,16 +51,19 @@ export class StepTwoComponent implements OnInit {
   selectEstado(estado: Estado) {
 
     this.estadoSelected = true;
+    this.cidadeSelected = false;
 
     of(estado)
-    .pipe(
-      tap(estado => console.log('Novo estado: ', estado)),
-      map(estado => this.estados.filter(e => e.id === estado.id)),
-      map(estados => estados && estados.length > 0 ? estados[0].id : empty()),
-      switchMap((idEstado: number) => this.testService.getCidades(idEstado)),
-      tap(console.log)
-    )
-    .subscribe(cidades => this.cidades = cidades);
+      .pipe(
+        tap(estado => console.log('Novo estado: ', estado)),
+        map(estado => this.estados.filter(e => e.id === estado.id)),
+        map(estados =>
+          estados && estados.length > 0 ? estados[0].id : empty()
+        ),
+        switchMap((idEstado: number) => this.testService.getCidades(idEstado)),
+        tap(console.log)
+      )
+      .subscribe(cidades => (this.cidades = cidades));
   }
 
   /**
@@ -122,16 +86,17 @@ export class StepTwoComponent implements OnInit {
     for (const c of this.categories) {
       console.log(c);
     }
-    this.estadoSelected = !this.estadoSelected;
-    this.cidadeSelected = !this.cidadeSelected;
+    this.estadoSelected = false;
+    this.cidadeSelected = true;
     this.form.get('category').patchValue('');
   }
 
   removeProduct() {
-    this.estadoSelected = !this.estadoSelected;
-    this.cidadeSelected = !this.cidadeSelected;
-    this.categories.shift();
+    this.estadoSelected = false;
+    this.cidadeSelected = true;
+    if (this.categories.length > 0) {
+      this.categories.shift();
+    }
     this.form.reset();
   }
-
 }
