@@ -6,8 +6,8 @@ import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-step-three',
-  templateUrl: './step-three.component.html',
-  styleUrls: [`./step-three.component.scss`]
+  templateUrl: './carriers-list.component.html',
+  styleUrls: [`./carriers-list.component.scss`]
 })
 export class StepThreeComponent implements OnInit {
 

@@ -10,11 +10,9 @@ import { IntroStepComponent } from './intro-step/intro-step.component';
 import { StepOneComponent } from './step-one/step-one.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { FinalStepComponent } from './final-step/final-step.component';
-
-// angular materil imports
 import { StepperComponent } from '../../shared/stepper/stepper.component';
 import { SendComponent } from './send.component';
-import { StepThreeComponent } from './step-three/step-three.component';
+import { StepThreeComponent } from './carriers-list/carriers-list.component';
 
 @NgModule({
   declarations: [

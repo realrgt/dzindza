@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="text-center">
+  <h3 class="mb-4">
+    Bem vindo <span class="text-muted">{{ name }}</span>
+  </h3>
+
+  <button class="btn-outline-danger form-control">Entrar com Google</button>
+
+  <hr class="hr-text" data-content="Ou" />
+
+  <form>
+    <div class="form-group has-search">
+      <span class="fas fa-user form-control-feedback"></span>
+      <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="name" name="name" />
+    </div>
+    <div class="form-group has-search">
+      <span class="fas fa-phone form-control-feedback"></span>
+      <input type="tel" class="form-control" placeholder="Telefone" />
+    </div>
+    <div class="form-group has-search">
+      <span class="fas fa-envelope form-control-feedback"></span>
+      <input type="email" class="form-control" placeholder="Email" />
+    </div>
+    <div class="container row">
+      <button type="button" class="btn btn-success mr-2">Entrar</button>
+      <button type="button" class="btn btn-dark" [routerLink]="['/home/signup']">
+        Ser novo transportador
+      </button>
+    </div>
+  </form>
+</div>

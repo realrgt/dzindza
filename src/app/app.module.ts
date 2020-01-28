@@ -12,10 +12,6 @@ import { ChatModule } from './chat/chat.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-// import { ScrollingModule } from '@angular/cdk/scrolling';
-// import { MatCardModule } from '@angular/material/card';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,11 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ComponentsModule,
     ChatModule,
     CoreModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    // ScrollingModule,
-    // MatCardModule
-
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

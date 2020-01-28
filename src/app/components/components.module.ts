@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // custom imports
-import { HomeModule } from './home/home.module';
 import { SendModule } from './send/send.module';
 import { CarryModule } from './carry/carry.module';
 
@@ -12,7 +11,7 @@ import { CarryModule } from './carry/carry.module';
   ],
   imports: [
     CommonModule,
-    HomeModule,
+    // HomeModule, ==> Has been lazy loaded
     LeevasModule,
     CarryModule,
     SendModule
