@@ -4,21 +4,17 @@ import { CommonModule } from '@angular/common';
 
 // custom imports
 import { HomeModule } from './home/home.module';
-import { SendComponent } from './send/send.component';
-import { CarryComponent } from './carry/carry.component';
-import { LeevasComponent } from './leevas/leevas.component';
 import { SendModule } from './send/send.module';
+import { CarryModule } from './carry/carry.module';
 
 @NgModule({
   declarations: [
-    SendComponent,
-    CarryComponent,
-    LeevasComponent,
   ],
   imports: [
     CommonModule,
     HomeModule,
     LeevasModule,
+    CarryModule,
     SendModule
   ]
 })

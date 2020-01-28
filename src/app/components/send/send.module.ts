@@ -12,25 +12,25 @@ import { StepTwoComponent } from './step-two/step-two.component';
 import { FinalStepComponent } from './final-step/final-step.component';
 
 // angular materil imports
-// import { ScrollingModule } from '@angular/cdk/scrolling';
-// import { MatCardModule } from '@angular/material/card';
 import { StepperComponent } from '../../shared/stepper/stepper.component';
+import { SendComponent } from './send.component';
+import { StepThreeComponent } from './step-three/step-three.component';
 
 @NgModule({
   declarations: [
+    SendComponent,
     IntroStepComponent,
     StepOneComponent,
     StepTwoComponent,
     FinalStepComponent,
-    StepperComponent
+    StepperComponent,
+    StepThreeComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    // ScrollingModule,
-    // MatCardModule
   ]
 })
 export class SendModule {}
