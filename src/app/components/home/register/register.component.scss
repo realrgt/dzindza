@@ -1,5 +1,101 @@
-.cic {
-    width: 100px;
-    height: 100px;
-    border: black solid 1px;
-}
+// hr styling
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: 0.5;
+    &:before {
+      content: "";
+      // use the linear-gradient for the fading effect
+      // use a solid background color for a solid bar
+      background: linear-gradient(to right, transparent, #818078, transparent);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+    }
+    &:after {
+      content: attr(data-content);
+      position: relative;
+      display: inline-block;
+      color: black;
+  
+      padding: 0 0.5em;
+      line-height: 1.5em;
+      // this is really the only tricky part, you need to specify the background color of the container element...
+      color: #818078;
+      background-color: #fcfcfa;
+    }
+  }
+  
+  // input icon
+  
+  .has-search .form-control {
+      padding-left: 2.375rem;
+  }
+  
+  .has-search .form-control-feedback {
+      position: absolute;
+      z-index: 2;
+      display: block;
+      width: 2.375rem;
+      height: 2.375rem;
+      line-height: 2.375rem;
+      text-align: center;
+      pointer-events: none;
+      // color: #aaa;
+      color: rgb(58, 54, 54);
+  }
+  
+  // circles
+
+  .circles {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: space-evenly;
+  }
+  
+  .circle {
+    position: relative;
+    // margin: .5em;
+    max-width: 300px;
+    text-align: center;
+    border: solid 1px #5a5a5a;
+    border-radius: 50%;
+    overflow: hidden;
+    // width: 23.5%;
+    width: 15%;
+      // margin: 0;
+    margin: .1em;
+  }
+  
+  /* display .call-out as 1:1 ratio */
+  .circle:before {
+    display: block;
+    content: '';
+    margin-top: 100%;
+  }
+  
+  .circle-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .circle-icon i {
+    position: absolute;
+    top: 12%;
+    left: 0;
+    right: 0;
+    color: #5a5a5a;
+    padding: .5em 0;
+  }
