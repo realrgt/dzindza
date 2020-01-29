@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { CodeConfirmComponent } from './register/code-confirm/code-confirm.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', component: LoginComponent },
-      { path: 'signup', component: RegisterComponent }
+      { path: 'signup', component: RegisterComponent },
+      { path: 'confirm', component: CodeConfirmComponent }
     ]
   }
 ];
