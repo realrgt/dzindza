@@ -3,24 +3,26 @@ import { CommonModule } from '@angular/common';
 
 // angular imports
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Custom imports
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { RouterModule } from '@angular/router';
+import { RegisterModule } from './register/register.module';
+import { HrModule } from '../../shared/hr/hr.module';
 import { HomeRoutingModule } from './home-routing.module';  // for lazy load
 
 @NgModule({
   declarations: [
     HomeComponent,
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
+    RegisterModule,
     RouterModule,
     FormsModule,
+    HrModule,
     HomeRoutingModule
   ]
 })
