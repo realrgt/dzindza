@@ -1,0 +1,33 @@
+<div class="text-center">
+    <div class="mb-3">
+        <h3 class="mb-3">Só mais uma coisa...</h3>
+        <p>Adicione duas fotos de documentos de <br /> Identificação difentes</p>
+    </div>
+    <form [formGroup]="form">
+        <div class="col-sm-6" *ngIf="!imgSrc1; else showPhoto1" >
+            <button type="button" (click)="fileInput1.click()" class="btn btn-secondary rounded-0">
+                <i class="far fa-image fa-8x align-middle"></i>
+            </button>
+            <input #fileInput1 hidden type="file" accept="image/*" formControlName="file1"
+                (change)="handleFile1($event.target.files[0])">
+        </div>
+        <div class="col-sm-6" *ngIf="!imgSrc2; else showPhoto2">
+            <button type="button" (click)="fileInput2.click()" class="btn btn-secondary rounded-0">
+                <i class="far fa-image fa-8x align-middle"></i>
+            </button>
+            <input #fileInput2 hidden type="file" accept="image/*" formControlName="file1"
+            (change)="handleFile2($event.target.files[0])">
+        </div>
+        <div class="col-sm-6">
+            <ng-template #showPhoto1>
+                <img [src]="imgSrc1" class="img-thumbnail" >
+            </ng-template>
+        </div>
+        <div class="col-sm-6">
+            <ng-template #showPhoto2>
+                <img [src]="imgSrc2" class="img-thumbnail" >
+            </ng-template>
+        </div>
+    </form>
+    <button type="button" class="btn btn-success mt-5" (click)="upload()">Confirmar</button>
+</div>

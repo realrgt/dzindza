@@ -1,0 +1,16 @@
+form {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    justify-content: space-between;
+
+    img:nth-child(1) {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+
+    img:nth-child(2) {
+        margin-left: 10%;
+    }
+
+}

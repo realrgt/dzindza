@@ -1,3 +1,4 @@
+import { CarrierPicsComponent } from './register/carrier-pics/carrier-pics.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -14,7 +15,8 @@ const routes: Routes = [
     children: [
       { path: '', component: LoginComponent },
       { path: 'signup', component: RegisterComponent },
-      { path: 'confirm', component: CodeConfirmComponent }
+      { path: 'confirm', component: CodeConfirmComponent },
+      { path: 'carrier-pics', component: CarrierPicsComponent }
     ]
   }
 ];

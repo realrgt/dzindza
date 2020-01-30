@@ -1,3 +1,4 @@
+import { PicsPreviewerModule } from './../../../shared/pics-previewer/pics-previewer.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -6,15 +7,18 @@ import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register.component';
 import { HrModule } from '../../../shared/hr/hr.module';
 import { CodeConfirmComponent } from './code-confirm/code-confirm.component';
+import { CarrierPicsComponent } from './carrier-pics/carrier-pics.component';
 
 @NgModule({
     declarations: [
         RegisterComponent,
-        CodeConfirmComponent
+        CodeConfirmComponent,
+        CarrierPicsComponent
     ],
     imports: [
         CommonModule,
         HrModule,
+        PicsPreviewerModule,
         RouterModule
     ]
 })
