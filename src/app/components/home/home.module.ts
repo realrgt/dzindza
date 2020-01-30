@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterModule } from './register/register.module';
 import { HrModule } from '../../shared/hr/hr.module';
 import { HomeRoutingModule } from './home-routing.module';  // for lazy load
+import { FilePickerOptionsModule } from '../../shared/file-picker-options/file-picker-options.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HomeRoutingModule } from './home-routing.module';  // for lazy load
     RouterModule,
     FormsModule,
     HrModule,
+    FilePickerOptionsModule,
     HomeRoutingModule
   ]
 })

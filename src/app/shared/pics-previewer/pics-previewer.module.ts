@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // custom imports
 import { PicsPreviewerComponent } from './pics-previewer.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -11,7 +12,8 @@ import { PicsPreviewerComponent } from './pics-previewer.component';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     exports: [
         PicsPreviewerComponent

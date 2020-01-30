@@ -3,6 +3,7 @@ form {
     flex-direction: row;
     flex: 1 1 auto;
     justify-content: space-between;
+    margin-top: 50px;
 
     img:nth-child(1) {
         margin-right: 10%;
@@ -13,4 +14,26 @@ form {
         margin-left: 10%;
     }
 
+}
+
+.button-width {
+    width: 78%;
+    margin-left: 11%;
+}
+
+a {
+    &:first-child {
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    
+    &:hover {
+        font-weight: 600;
+    }
+}
+
+p {
+    line-height: 20px;
 }

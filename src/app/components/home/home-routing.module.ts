@@ -1,4 +1,3 @@
-import { CarrierPicsComponent } from './register/carrier-pics/carrier-pics.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,6 +6,8 @@ import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CodeConfirmComponent } from './register/code-confirm/code-confirm.component';
+import { CarrierPicsComponent } from './register/carrier-pics/carrier-pics.component';
+import { FilePickerOptionsComponent } from '../../shared/file-picker-options/file-picker-options.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,9 @@ const routes: Routes = [
       { path: '', component: LoginComponent },
       { path: 'signup', component: RegisterComponent },
       { path: 'confirm', component: CodeConfirmComponent },
-      { path: 'carrier-pics', component: CarrierPicsComponent }
+      { path: 'carrier-pics', component: CarrierPicsComponent },
+      // To be removed
+      { path: 'options', component: FilePickerOptionsComponent }
     ]
   }
 ];

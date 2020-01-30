@@ -1,7 +1,8 @@
 <div class="text-center">
     <div class="mb-3">
-        <h3 class="mb-3">Só mais uma coisa...</h3>
-        <p>Adicione duas fotos de documentos de <br /> Identificação difentes</p>
+        <h3 class="mb-3">Teus clientes <br /> querem te conhecer</h3>
+        <p class="mb-0">Adicione duas fotos suas em <br /> posições difentes</p>
+        <p><a href="javascrip:void(0)" class="text-muted">Porque?</a></p>
     </div>
     <form [formGroup]="form">
         <div class="col-sm-6" *ngIf="!imgSrc1; else showPhoto1" >
@@ -29,5 +30,8 @@
             </ng-template>
         </div>
     </form>
-    <button type="button" class="btn btn-success mt-5" (click)="upload()">Confirmar</button>
+    <div class="button-width mt-5 mb-3">
+        <button type="button" class="form-control btn-success" (click)="upload()" [routerLink]="['/home/options']" >Confirmar</button>
+    </div>
+    <a href="javascript:void(0)" class="text-muted">Fazer mais tarde</a>
 </div>

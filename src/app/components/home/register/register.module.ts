@@ -8,12 +8,14 @@ import { RegisterComponent } from './register.component';
 import { HrModule } from '../../../shared/hr/hr.module';
 import { CodeConfirmComponent } from './code-confirm/code-confirm.component';
 import { CarrierPicsComponent } from './carrier-pics/carrier-pics.component';
+import { CarrierDocsComponent } from './carrier-docs/carrier-docs.component';
 
 @NgModule({
     declarations: [
         RegisterComponent,
         CodeConfirmComponent,
-        CarrierPicsComponent
+        CarrierPicsComponent,
+        CarrierDocsComponent
     ],
     imports: [
         CommonModule,
