@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class PicsPreviewerComponent implements OnInit {
 
+    // inbound properties
+    @Input() subtitleHalf1: string;
+    @Input() subtitleHalf2: string;
+
+    @Input() route: string;
+    //  end inbound properties
     form: FormGroup;
 
     file1: File;

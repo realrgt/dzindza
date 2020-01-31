@@ -1,7 +1,6 @@
 <div class="text-center">
     <div class="mb-3">
-        <h3 class="mb-3">Teus clientes <br /> querem te conhecer</h3>
-        <p class="mb-0">Adicione duas fotos suas em <br /> posições difentes</p>
+        <p class="mb-0">{{ subtitleHalf1 }} <br /> {{ subtitleHalf2 }}</p>
         <p><a href="javascrip:void(0)" class="text-muted">Porque?</a></p>
     </div>
     <form [formGroup]="form">
@@ -31,7 +30,7 @@
         </div>
     </form>
     <div class="button-width mt-5 mb-3">
-        <button type="button" class="form-control btn-success" (click)="upload()" [routerLink]="['/home/options']" >Confirmar</button>
+        <button type="button" class="form-control btn-success" (click)="upload()" [routerLink]="route" >Confirmar</button>
     </div>
-    <a href="javascript:void(0)" class="text-muted">Fazer mais tarde</a>
+    <a class="text-muted" [routerLink]="['/step-three']">Fazer mais tarde</a>
 </div>
