@@ -6,13 +6,13 @@
     O quê vai enviar?
   </h3>
 
-  <div class="scrolling-wrapper mt-3 animated shake" *ngIf="!estadoSelected">
+  <div class="scrolling-wrapper mt-3 animated fadeInRight" *ngIf="!estadoSelected">
     <div class="card p-3" *ngFor="let estado of estados" (click)="selectEstado(estado)">
       <h5>{{ estado.nome }}</h5>
     </div>
   </div>
 
-  <div class="scrolling-wrapper mt-3 animated shake" *ngIf="!cidadeSelected">
+  <div class="scrolling-wrapper mt-3 animated fadeInRight" *ngIf="!cidadeSelected">
     <div class="card p-3" *ngFor="let cidade of cidades" (click)="fillCity(cidade)">
       <h6>{{ cidade.nome }}</h6>
     </div>
