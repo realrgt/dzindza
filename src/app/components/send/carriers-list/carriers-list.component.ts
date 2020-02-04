@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 // custom imports
-import { Estado } from '../../../models/estado';
-import { TestService } from '../../../services/test.service';
+import { CarrierService } from '../../../services/carrier.service';
+import { Carrier } from '../../../models/carrier';
 
 @Component({
   selector: 'app-step-three',
@@ -14,26 +14,23 @@ export class StepThreeComponent implements OnInit {
   expandStyle = 'in-down mt-3';   // FadeInDown effect and margin-top: 3
 
   cardClicked = false;
-  selectedItem: Estado;
+  selectedItem: Carrier;
 
-  estados: Estado[];
+  carriers: Carrier[];
 
   constructor(
-    private testService: TestService
+    // private testService: TestService,
+    private carrierService: CarrierService
   ) {}
 
   ngOnInit() {
-    this.testService
-      .getEstados()
-      .subscribe(
-        docs => this.estados = docs
-      );
+    this.carrierService.getCarriers().subscribe(docs => this.carriers = docs);
   }
 
   /**
    * Alternates div list selected value
    */
-  onClicked(estado: Estado) {
+  onClicked(estado) {
     // this.cardClicked = !this.cardClicked;
     this.cardClicked = true;
     this.selectedItem = estado;

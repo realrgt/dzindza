@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyCdv695hoDSG9eyKwQzXE9izjluzNt7x3o',
+    authDomain: 'leeva-72ade.firebaseapp.com',
+    databaseURL: 'https://leeva-72ade.firebaseio.com',
+    projectId: 'leeva-72ade',
+    storageBucket: 'leeva-72ade.appspot.com',
+    messagingSenderId: '52700592567',
+    appId: '1:52700592567:web:7b376a0081e5f45474d032',
+    measurementId: 'G-6PS4DKHZ28'
+  }
 };
 
 /*
