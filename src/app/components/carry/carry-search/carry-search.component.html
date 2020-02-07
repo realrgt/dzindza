@@ -1,0 +1,91 @@
+<div class="container">
+    <!-- stepper -->
+    <app-stepper [carryStepper]="showCarry"></app-stepper>
+    <form class="form-group mt-5">
+        <div class="row justify-content-center mt-5" *ngIf="showSecond">
+            <div class="col-8 col-md-8 mb-4 animated" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Ponto de recolha" (focus)="onFocusFrom()">
+                <span class="fa fa-map-marker-alt input-icon"></span>
+                <!-- map selection option -->
+                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon" (click)="onSelectFrom()">
+                    <a class="text-dark"><span class="far fa-map fa-lg"></span>
+                        <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
+                    </a>
+                </div>
+                <!-- google map here! -->
+                <div class="google-map mt-3 col-12 col-md-12 animated fadeIn" *ngIf="mapFrom">
+                    <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
+                </div>
+                <!-- google map location select -->
+                <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton" (click)="onFromLocationSelect()"> É aqui! </button>
+                <br />
+                <!-- separating the addresses -->
+                <hr *ngIf="showFirst" />
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showThirth">
+            <div class="col-8 col-md-8 mb-4 animated" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Ponto de entrega" (focus)="onFocusTo()">
+                <span class="fa fa-map-marker-alt input-icon"></span>
+                <!-- map selection option -->
+                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapToIcon" (click)="onSelectTo()">
+                    <a class="text-dark"><span class="far fa-map fa-lg"></span>
+                        <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
+                    </a>
+                </div>
+                <!-- google map here! -->
+                <div class="google-map mt-3 col-12 col-md-12  animated fadeIn" *ngIf="mapTo">
+                        <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
+                </div>
+                <!-- google map location select -->
+                <button class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton" (click)="onToLocationSelect()"> É aqui! </button>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 mb-4 animated" [class.fadeIn]="showEffect">
+                <select class="form-control input-box" placeholder="Categoria">
+                    <option value="" active> Categoria 1 </option>
+                    <option value=""> Categoria 2 </option>
+                    <option value=""> Categoria 3 </option>
+                    <option value=""> Categoria 4 </option>
+                    <option value=""> Categoria 5 </option>
+                    <option value=""> Categoria 6 </option>
+                </select>
+                <span class="fa fa-list input-icon"></span>
+            </div>
+        </div>
+        <!-- range -->
+        <div class="row justify-content-center animated fadeIn mb-4" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 col-lg-8  text-center">
+                <!-- range images -->
+                <img src="assets/img/range-box.png" alt="" class="mr-4 box-align-one range-one">
+                <img src="assets/img/range-box.png" alt="" class="mr-4 box-align-two range-two">
+                <img src="assets/img/range-box.png" alt="" class="mr-4 box-align-three range-three">
+                <img src="assets/img/range-box.png" alt="" class="mr-4 box-align-four range-four">
+            </div>
+            <!-- range input -->
+            <div class="col-6 col-md-6 col-lg-6">
+                <input class="form-control custom-range" type="range" name="" id="" min="1" max="4" step="0.5">
+            </div>
+        </div>
+        <!-- label size -->
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 text-center">
+                <label for=""> Pequena: Máx 40kg ou 100cm </label>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 text-center">
+                <label style="color: #c5c5c5;"> Tamanho de caixa de sapatos </label>
+            </div>
+        </div>
+        <!-- button -->
+        <div class="row justify-content-center mt-3" *ngIf="showFirst && showSecond">
+            <div class="col-2 col-md-2 animated" [class.fadeIn]="showEffect">
+                <button class="btn btn-success btn-sm" (click)="search()"> 
+                    <i class="fa fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

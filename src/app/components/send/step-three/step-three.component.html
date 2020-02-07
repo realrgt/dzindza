@@ -1,0 +1,71 @@
+<!-- stepper -->
+<app-stepper [sendStepper]="showStepThree" class="mb-4"></app-stepper>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-8 col-md-8">
+        <button routerLink="/intro-step" routerLinkActive="router-link-active" class="btn btn-light">
+            <span class="fa fa-paper-plane"></span> Enviar Encomenda
+        </button>
+        <hr />
+    </div>
+</div>
+<div class="row mt-1">
+    <p class="animated zoomIn p-one" style="text-indent: 495px; font-size: 16pt; font-weight: 500;">
+        Transportadores sugeridos </p>
+    <br /> <br />
+</div>
+<!-- product details -->
+<div class="container">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+
+            <div class="card mt-3" *ngFor="let carrier of carriers" (click)="onClicked(carrier)">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-3 col-md-3 align-items-center">
+                        <div class="card-img-left text-center">
+                            <img src="assets/img/liver-placeholder.png" width="100" height="100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-9 col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <span style="float: left;"> <i class="fa fa-plane"></i> </span>
+                                <span style="float: right">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{ carrier.name }}
+                            </p>
+                            <p class="card-text">
+                                <span class="fa fa-plane-arrival"></span> <b> Chegada: </b> <small>{{ carrier.arrivalTime }}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div  *ngIf="cardClicked && selectedItem.name == carrier.name" [class]="expandStyle">
+                    <p><strong>Partida: </strong><span>{{ carrier.departurePlace }}</span></p>
+                    <p><strong>Destino: </strong><span>{{ carrier.arrivalPlace }}</span></p>
+                    <p><strong>Tamanho: </strong><span>{{ carrier.availableSize + 'Kg'}}</span></p>
+                    <button class="btn btn-success" (click)="askToSend()">Pedir para enviar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- wait more button -->
+<div class="row justify-content-center text-center mt-4">
+    <div class="col-8">
+        <button class="btn btn-light float" style="float: inherit;">
+            Esperar Mais
+        </button>
+    </div>
+</div>

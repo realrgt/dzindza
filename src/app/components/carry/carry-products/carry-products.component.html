@@ -1,0 +1,96 @@
+<!-- stepper -->
+<app-stepper [carryStepper]=showCarryProducts class="mb-5"></app-stepper>
+<div class="container">
+    <div class="row text-right justify-content-end mt-5">
+        <label class="mr-3" style="font-size: large; font-weight: 500;"> Ver:  </label>
+        <div class="mr-4 btn btn-light btn-sm" *ngIf="mapView" (click)="changeView(true, false)"> <span class="fa fa-list fa-2x" style="color: rgba(41, 28, 0, 0.5);"></span> </div>
+        <div class="btn btn-light btn-sm" *ngIf="listView" (click)="changeView(false, true)"> <span class="fas fa-map-marked-alt fa-2x" style="color: rgba(41, 28, 0, 0.5);"></span> </div>
+    </div>
+</div>
+
+<!-- button -->
+<div class="container mt-3 mb-5">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+            <button class="btn btn-light" (click)="goBack()">
+                <span class="fa fa-search"></span> Pesquisar
+            </button>
+        </div>
+    </div>
+</div>
+<!-- list view -->
+<div class="container mt-5" *ngIf="listView">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+            <div class="card">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-3 col-md-3 align-items-center">
+                        <div class="card-img-left text-center">
+                            <img src="assets/img/samsung-s10.jpg" width="100" height="100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-9 col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title"> Celular SAMSUNG S10 novo </h5>
+                            <p class="card-text">
+                                <span class="fa fa-map-marker-alt"></span> Matola, Mozambique
+                            </p>
+                            <p class="card-text">
+                                <span class="fa fa-mobile-alt"></span> <b> Tamanho: </b> <small>Pequeno (5kg)</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" *ngIf="listView">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+            <div class="card">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-3 col-md-3 align-items-center">
+                        <div class="card-img-left text-center">
+                            <img src="assets/img/tv.jpg" width="100" height="100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-9 col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title"> Televisor HISENSE 42" </h5>
+                            <p class="card-text">
+                                <span class="fa fa-map-marker-alt"></span> Matola, Mozambique
+                            </p>
+                            <p class="card-text">
+                                <span class="fa fa-tv"></span> <b> Tamanho: </b> <small>Médio (40kg)</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- map view -->
+<div class="container mt-5" *ngIf="mapView">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+            <div class="mapView  jumbotron">
+                <span class="fa fa-map-marker-alt fa-lg" style="margin-top: 60px; margin-left: 70%;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-2 mb-5" *ngIf="mapView">
+    <div class="row justify-content-center animated fadeInDown">
+        <div class="col-7 col-md-7">
+            <div class="mapView  jumbotron">
+                <span class="fa fa-map-marker-alt fa-lg" style="margin-top: 70px; margin-left: 30%;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+

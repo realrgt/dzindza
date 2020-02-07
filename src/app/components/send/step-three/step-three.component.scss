@@ -1,0 +1,50 @@
+/* indent the text */
+.p-intro {
+  font-size: 14pt;
+  text-indent: 110px;
+}
+.fa-star {
+  color: gold;
+}
+.fa-star-half-alt {
+  color: gold;
+}
+.card-click {
+  cursor: pointer;
+}
+.round-icon {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background: #f9f8fa;
+  color: grey;
+  margin-bottom: 40%;
+  left: 10px;
+}
+.faIcon {
+  position: absolute;
+  top: 40%;
+  left: 30%;
+}
+.from-label {
+  text-indent: 30px;
+  color: grey;
+  font-size: 20px;
+  margin-top: 5px;
+}
+.to-label {
+  text-indent: 30px;
+  color: grey;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.sizeCustom {
+  text-indent: 30px;
+  color: grey;
+  font-size: 20px;
+  margin-top: 35px;
+}
+.dataCustom {
+  color: #444;
+}

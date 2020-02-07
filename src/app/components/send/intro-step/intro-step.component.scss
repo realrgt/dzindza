@@ -4,8 +4,8 @@
 }
 // logo img
 img{
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
 }
 .send-icon{
     margin-top: 50px;
@@ -14,7 +14,7 @@ img{
 // to indent the wellcome intro-step text
 .p-intro{
     font-size: 14pt;
-    text-indent: 110px;
+    text-indent: 190px;
 }
 // placing icons in the input boxes
 .input-box{
@@ -43,10 +43,10 @@ img{
 .div-delay{
     animation-delay: 4s;
 }
-// google map shadow
+// google map shaddow
 .google-map{
     height: 300px;
-    width: 895px;
-    border: 1px solid #c5c5c5;
-    background: #c5c5c5;
+    width: 100%;
+    // border: 1px solid #c5c5c5;
+    // background: #c5c5c5;
 }

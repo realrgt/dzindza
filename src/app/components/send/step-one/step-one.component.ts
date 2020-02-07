@@ -1,19 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterContentInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MultiStepService } from '../../../services/multi-step.service';
 import { SendData } from '../../../mocks/send-data';
+
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { GeoLocationService } from 'src/app/services/geo-location.service';
 
 @Component({
   selector: 'app-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.scss']
 })
-export class StepOneComponent implements OnInit {
+export class StepOneComponent implements OnInit, AfterContentInit {
+  constructor(
+    private formBuilder: FormBuilder,
+    private ms: MultiStepService,
+    public geoLocationService: GeoLocationService
+  ) {}
 
   // form setup
   form: FormGroup;
   sendData: SendData = new SendData();
+
+  // google-place-autocomplete
+  @ViewChild('placesRef', { static: false }) placesRef: GooglePlaceDirective;
+  formattedAddress = '';
+  selecteAddress = '';
+  /* AGM */
+  coordinates: any;
+  // title = "Encontre no Mapa";
+  latitude: number = -25.96553;
+  longitude: number = 32.58322;
+  locationChosen = false;
+
+  // show step-one
+  showStepOne = true;
+
   /* animate css */
   showEffect = true;
   bounceIn = 'bounceIn';
@@ -30,14 +59,15 @@ export class StepOneComponent implements OnInit {
   showThirth = true;
   mapSelectButton = false;
 
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private ms: MultiStepService
-  ) { }
+  /* google-places-autocomplete method */
+  /* country restrictions */
+  options = {
+    componentRestrictions: {
+      country: ['MZ', 'SA']
+    }
+  };
 
   ngOnInit() {
-
     this.ms.data.subscribe(doc => {
       console.log(doc);
       this.sendData.departure = doc.departure;
@@ -51,20 +81,50 @@ export class StepOneComponent implements OnInit {
       receiverName: [null, [Validators.required]],
       receiverContact: [null, [Validators.required]]
     });
+
+    /* picking actual google-map location */
+    this.geoLocationService.getPosition().subscribe((position: Position) => {
+      this.coordinates = {
+        latitude: +position.coords.latitude,
+        longitude: +position.coords.longitude
+      };
+    });
   }
 
-  /*
-  onFocus
-  */
+  ngAfterContentInit() {
+    if (this.sendData) {
+      this.form.get('departure').setValue(this.sendData.departure);
+      this.form.get('destination').setValue(this.sendData.destination);
+    }
+  }
+
+  public handleAddressChange1(address1: any) {
+    this.formattedAddress = address1.formatted_address;
+    // this.sendStep1.get('local_partida').setValue(this.formattedAddress);
+  }
+
+  public handleAddressChange2(address2: any) {
+    this.formattedAddress = address2.formatted_address;
+    // this.sendStep1.get('local_destino').setValue(this.formattedAddress);
+  }
+
+  /* AGM choose location */
+  onChoseLocation(event) {
+    this.latitude = event.coords.lat;
+    this.longitude = event.coords.lng;
+    this.locationChosen = true;
+    console.log((this.latitude = event.coords.lat));
+    console.log((this.longitude = event.coords.lng));
+  }
+
+  // onFocus
   onFocusFrom() {
     this.mapFromIcon = true;
   }
   onFocusTo() {
     this.mapToIcon = true;
   }
-  /*
-  start functions to manipulate appear/disappear items when select
-  */
+  // start functions to manipulate appear/disappear items when select
   onSelectFrom() {
     this.mapFrom = true;
     this.mapFromIcon = false;
@@ -91,22 +151,19 @@ export class StepOneComponent implements OnInit {
     this.mapSelectButton = false;
     this.showEffect = false;
   }
-  /*
-  end functions to manipulate appear/desappear items when select
-  */
-  // go back step
+
+  // end functions to manipulate appear/disappear items when select
   goBack() {
-    this.router.navigate(['/intro-step']);
     this.showEffect = false;
   }
 
   updateObject() {
-
+    this.sendData.departure = this.form.get('departure').value;
+    this.sendData.destination = this.form.get('destination').value;
     this.sendData.departureSpot = this.form.get('departureSpot').value;
     this.sendData.receiverName = this.form.get('receiverName').value;
     this.sendData.receiverContact = this.form.get('receiverContact').value;
 
     this.ms.updateSendDataSource(this.sendData);
   }
-
 }

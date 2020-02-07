@@ -5,14 +5,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// maps imports
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+
 // custom imports
 import { IntroStepComponent } from './intro-step/intro-step.component';
 import { StepOneComponent } from './step-one/step-one.component';
 import { StepTwoComponent } from './step-two/step-two.component';
-import { FinalStepComponent } from './final-step/final-step.component';
-import { StepperComponent } from '../../shared/stepper/stepper.component';
 import { SendComponent } from './send.component';
-import { StepThreeComponent } from './carriers-list/carriers-list.component';
+import { StepThreeComponent } from './step-three/step-three.component';
+import { StepperModule } from '../../shared/stepper/stepper.module';
+import { CarryModule } from '../carry/carry.module';
+
 
 @NgModule({
   declarations: [
@@ -20,8 +25,6 @@ import { StepThreeComponent } from './carriers-list/carriers-list.component';
     IntroStepComponent,
     StepOneComponent,
     StepTwoComponent,
-    FinalStepComponent,
-    StepperComponent,
     StepThreeComponent,
   ],
   imports: [
@@ -29,6 +32,12 @@ import { StepThreeComponent } from './carriers-list/carriers-list.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    StepperModule,
+    CarryModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCzYjPF_jdx1tITyS-rS_mKClL43CDg3ts'
+    })
   ]
 })
 export class SendModule {}

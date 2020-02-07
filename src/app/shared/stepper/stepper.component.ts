@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StepperComponent implements OnInit {
 
-  constructor() { }
+  /* stepprer show */
+  @Input() public carryStepper: boolean = false;
+  @Input() public sendStepper: boolean = false;
 
+  constructor() { }
+  
   ngOnInit() {
   }
-
+  
+  
 }

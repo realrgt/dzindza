@@ -1,5 +1,5 @@
-import { tap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { map, take } from 'rxjs/operators';
 
 // custom imports
 import { HttpClient } from '@angular/common/http';
@@ -15,15 +15,15 @@ export class TestService {
   getEstados() {
     return this.http
       .get<Estado[]>('assets/data/estados.json')
-      .pipe(tap(console.log));
+      .pipe(take(1));
   }
 
   getCidades(idEstado: number) {
     return this.http
       .get<Cidade[]>('assets/data/cidades.json')
       .pipe(
+        take(1),
         map((cidades: Cidade[]) => cidades.filter(c => c.estado == idEstado)),
-        // tap(console.log)
       );
   }
 }

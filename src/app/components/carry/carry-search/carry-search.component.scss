@@ -9,11 +9,6 @@
 .content-absolute{
     position: absolute;
 }
-// logo img
-img{
-    width: 150px;
-    height: 150px;
-}
 .send-icon{
     margin-top: 50px;
     margin-bottom: 80px;
@@ -21,7 +16,7 @@ img{
 // to indent the wellcome intro-step text
 .p-intro{
     font-size: 14pt;
-    text-indent: 200px;
+    text-indent: 110px;
 }
 // placing icons in the input boxes
 .input-box{
@@ -34,6 +29,37 @@ img{
     top: 10px;
     left: 30px;
 }
+.link-icon{
+    position: absolute;
+    left: 1000px;
+}
+/* box range formating */
+.box-align-one{
+    margin-top: 47px;
+}
+.box-align-two{
+    margin-top: 33px;
+}
+.box-align-three{
+    margin-top: 16px;
+}
+.range-one{
+    width: 60px;
+    height: 60px; 
+}
+.range-two{
+    width: 80px;
+    height: 80px; 
+}
+.range-three{
+    width: 100px;
+    height: 100px; 
+}
+.range-four{
+    width: 120px;
+    height: 120px; 
+}
+
 // delaying the animation
 .p-one{
     animation-delay: 0.5s;
@@ -45,6 +71,6 @@ img{
 .google-map{
     height: 300px;
     width: 100%;
-    // border: 1px solid #c5c5c5;
-    // background: #c5c5c5;
+    border: 1px solid #c5c5c5;
+    background: #c5c5c5;
 }

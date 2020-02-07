@@ -1,9 +1,10 @@
-<nav id="status" class="mb-5">
+<!-- if send -->
+<nav id="status" *ngIf="sendStepper" class="animated fadeIn">
     <div class="container">
         <div class="row mt-5 justify-content-center text-center">
             <div class="col-auto steps-content">
                 <!-- horizontal row -->
-                <div class="hr"></div>
+                <div class="hr-send"></div>
             </div>
             <!-- steps -->
             <a class="text-white" routerLink="/step-one" routerLinkActive="active">
@@ -16,21 +17,34 @@
                     <i class="fa fa-dolly fa-lg"></i>
                 </span>
             </a>
-            <a class="text-white" routerLink="/final" routerLinkActive="active">
+            <a class="text-white" routerLink="/step-three" routerLinkActive="active">
                 <span class="step">
-                    <i class="fa fa-check-double fa-lg"></i>
+                    <i class="fa fa-paper-plane fa-lg"></i>
                 </span>
             </a>
-            <!-- <a class="text-white" routerLink="/step-three" routerLinkActive="active">
+        </div>
+    </div>
+</nav>
+
+<!-- if carry -->
+<nav id="status" *ngIf="carryStepper" class="animated fadeIn">
+    <div class="container">
+        <div class="row mt-5 justify-content-center text-center">
+            <div class="col-auto steps-content">
+                <!-- horizontal row -->
+                <div class="hr-carry"></div>
+            </div>
+            <!-- steps -->
+            <a class="text-white" routerLink="/carry-search" routerLinkActive="active">
                 <span class="step">
-                    <i class="fas fa-tasks fa-lg"></i>
+                    <i class="fa fa-map-marked-alt fa-lg"></i>
                 </span>
             </a>
-            <a class="text-white" routerLink="/step-four" routerLinkActive="active">
+            <a class="text-white" routerLink="/carry-products" routerLinkActive="active">
                 <span class="step">
-                    <i class="fas fa-info-circle fa-lg"></i>
+                    <i class="fa fa-dolly fa-lg"></i>
                 </span>
-            </a> -->
+            </a>
         </div>
     </div>
 </nav>

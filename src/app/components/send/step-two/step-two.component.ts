@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-// angular imports
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { tap, map, switchMap } from 'rxjs/operators';
 import { of, empty } from 'rxjs';
 
@@ -31,6 +30,11 @@ export class StepTwoComponent implements OnInit {
   estados: Estado[];
   categories: any = [];
 
+  // stepper and view controls
+  _showStepTwo = true;
+  showStepTwo = true;
+  showResult = false;
+
   constructor(
     private testService: TestService,
     private formBuilder: FormBuilder,
@@ -38,11 +42,10 @@ export class StepTwoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.ms.data.subscribe(doc => {
       this.sendData.departure = doc.departure;
       this.sendData.destination = doc.destination;
-      
+
       this.sendData.departureSpot = doc.departureSpot;
       this.sendData.receiverName = doc.receiverName;
       this.sendData.receiverContact = doc.receiverContact;
@@ -54,19 +57,12 @@ export class StepTwoComponent implements OnInit {
       .subscribe(estados => (this.estados = estados));
 
     this.form = this.formBuilder.group({
-      category: [null, [Validators.required]],
-      product: [null, [Validators.required]],
       orderDetails: [null, [Validators.required]],
       orderSize: [null, [Validators.required]]
     });
   }
 
-  /**
-   * Filters specific data form a stream
-   * @param estado
-   */
   selectEstado(estado: Estado) {
-
     this.estadoSelected = true;
     this.cidadeSelected = false;
 
@@ -78,26 +74,16 @@ export class StepTwoComponent implements OnInit {
           estados && estados.length > 0 ? estados[0].id : empty()
         ),
         switchMap((idEstado: number) => this.testService.getCidades(idEstado)),
-        tap(console.log)
       )
       .subscribe(cidades => (this.cidades = cidades));
   }
 
-  /**
-   * Fill de selected city in the input
-   * @param cidade
-   */
   fillCity(cidade: Cidade) {
     this.cidadeSelected = true;
     this.objectTest = cidade;
     console.log(this.objectTest);
-    this.form.get('category').patchValue(this.objectTest.nome);
   }
 
-  /**
-   * Pushing categories to its array
-   *
-   */
   addCategory() {
     this.categories.push(this.objectTest.nome);
     for (const c of this.categories) {
@@ -105,7 +91,6 @@ export class StepTwoComponent implements OnInit {
     }
     this.estadoSelected = false;
     this.cidadeSelected = true;
-    this.form.get('category').patchValue('');
   }
 
   removeProduct() {
@@ -118,13 +103,26 @@ export class StepTwoComponent implements OnInit {
   }
 
   updateObject() {
-
     this.sendData.category = this.estados[this.objectTest.estado].nome;
     this.sendData.product = this.objectTest.nome;
     this.sendData.orderDetails = this.form.get('orderDetails').value;
     this.sendData.orderSize = this.form.get('orderSize').value;
 
     this.ms.updateSendDataSource(this.sendData);
+  }
+
+  showOtherView() {
+    this.showResult = !this.showResult;
+    this.showStepTwo = !this.showStepTwo;
+
+    if (this.showResult) {
+      this.updateObject();
+    }
+
+  }
+
+  onSubmit() {
+    this.ms.addOrder(this.sendData);
   }
 
 }
