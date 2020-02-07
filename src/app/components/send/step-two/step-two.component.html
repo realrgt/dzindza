@@ -18,44 +18,45 @@
     </div>
   </div>
 
-  <div [formGroup]="form" *ngIf="objectTest !== null && objectTest !== undefined" class="row mt-3 p-3">
-    <button type="button" class="btn btn-success col-sm-2 p-1" (click)="addCategory()">
-      Adicionar
-    </button>
-    <button type="button" class="btn btn-outline-danger col-sm-2 p-1" (click)="removeProduct()">
-      Modificar Produto
-    </button>
-    <input class="form-control col-sm-8" type="text" placeholder="Produto" formControlName="category" />
-  </div>
+  <form [formGroup]="form">
+    <div *ngIf="objectTest !== null && objectTest !== undefined" class="row mt-3 p-3">
+      <button type="button" class="btn btn-success col-sm-2 p-1" (click)="addCategory()">
+        Adicionar
+      </button>
+      <button type="button" class="btn btn-outline-danger col-sm-2 p-1" (click)="removeProduct()">
+        Modificar Produto
+      </button>
+      <input class="form-control col-sm-8" type="text" placeholder="Produto" formControlName="category" />
+    </div>
 
-  <span class="text-muted">Produtos: </span>
-  <span *ngFor="let item of categories" class="text-center text-muted">
-    {{ item + ', ' }}
-  </span>
+    <span class="text-muted">Produtos: </span>
+    <span *ngFor="let item of categories" class="text-center text-muted">
+      {{ item + ', ' }}
+    </span>
 
-  <div class="animated zoomIn delay">
-    <div class="row mt-4">
-      <div class="icon-pessoa mt-n2 ml-5">
-        <i class="fas fa-tasks"></i>
+    <div class="animated zoomIn delay">
+      <div class="row mt-4">
+        <div class="icon-pessoa mt-n2 ml-5">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <input class="form-control col-sm-10 ml-3" type="text" placeholder="Detalhes da encomenda" formControlName="orderDetails" />
       </div>
-      <input class="form-control col-sm-10 ml-3" type="text" placeholder="Detalhes da encomenda" />
-    </div>
 
-    <div class="row mt-5 ml-5">
-      <i class="fas fa-box-open"></i>
-      <i class="fas fa-box-open"></i>
-      <i class="fas fa-box-open"></i>
-      <i class="fas fa-box-open"></i>
+      <div class="row mt-5 ml-5">
+        <i class="fas fa-box-open"></i>
+        <i class="fas fa-box-open"></i>
+        <i class="fas fa-box-open"></i>
+        <i class="fas fa-box-open"></i>
+      </div>
+      <input type="range" class="custom-range" step="1" min="1" max="10" formControlName="orderSize" />
+      <div class="mt-4 px-3">
+        <button type="button" class="btn btn-outline-secondary" [routerLink]="['/step-one']">
+          Voltar
+        </button>
+        <button type="button" class="btn btn-success" [routerLink]="['/final']" (click)="updateObject()">
+          Continuar
+        </button>
+      </div>
     </div>
-    <input type="range" class="form-control-range" id="formControlRange" step="2" />
-
-    <div class="mt-4 px-3">
-      <button type="button" class="btn btn-outline-secondary" [routerLink]="['/intro-step']">
-        Voltar
-      </button>
-      <button type="button" class="btn btn-success" [routerLink]="['/final']">
-        Continuar
-      </button>
-    </div>
-  </div>
+  </form>
 </div>

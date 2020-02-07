@@ -6,10 +6,10 @@
     <br />
     <br />
   </div>
-  <form class="form-group mt-5">
+  <form [formGroup]="form" class="form-group mt-5">
     <div class="row justify-content-center">
       <div class="col-10 mb-4 animated fadeIn div-delay">
-        <input type="text" class="form-control input-box" placeholder="Endereço de partida" (focus)="onFocusFrom()" />
+        <input type="text" class="form-control input-box" placeholder="Endereço de partida" formControlName="departure" (focus)="onFocusFrom()" />
         <!-- map selection option -->
         <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon"
           (click)="onSelectFrom()">
@@ -33,7 +33,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-10 mb-4 animated fadeIn div-delay">
-        <input type="text" class="form-control input-box" placeholder="Endereço do Receptor" (focus)="onFocusTo()" />
+        <input type="text" class="form-control input-box" placeholder="Endereço do Receptor" formControlName="destination" (focus)="onFocusTo()" />
         <!-- map selection option -->
         <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapToIcon"
           (click)="onSelectTo()">
@@ -54,26 +54,26 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-10 mb-4 animated fadeIn div-delay">
-        <select class="form-control input-box" placeholder="Onde levar">
-          <option value="" active> Onde levar </option>
-          <option value=""> Aeroporto </option>
-          <option value=""> Casa </option>
-          <option value=""> Paragem </option>
-          <option value=""> Empresa </option>
-          <option value=""> Lugar Público </option>
+        <select class="form-control input-box" placeholder="Onde levar" formControlName="departureSpot" >
+          <option value="Onde levar" selected> Onde levar </option>
+          <option value="Aeroporto"> Aeroporto </option>
+          <option value="Casa"> Casa </option>
+          <option value="Paragem"> Paragem </option>
+          <option value="Empresa"> Empresa </option>
+          <option value="Lugar Público"> Lugar Público </option>
         </select>
         <span class="fa fa-map-marker-alt input-icon"></span>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-10 mb-4 animated fadeIn div-delay">
-        <input type="text" class="form-control input-box" placeholder="Nome do Receptor" />
+        <input type="text" class="form-control input-box" placeholder="Nome do Receptor" formControlName="receiverName" />
         <span class="far fa-user input-icon"></span>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-10 mb-4 animated fadeIn div-delay">
-        <input type="text" class="form-control input-box" placeholder="Contacto do Receptor" />
+        <input type="text" class="form-control input-box" placeholder="Contacto do Receptor" formControlName="receiverContact" />
         <span class="fa fa-phone-alt input-icon"></span>
       </div>
     </div>
@@ -85,7 +85,7 @@
         </button>
       </div>
       <div class="col-5 animated fadeIn div-delay">
-        <button class="btn-success form-control" [routerLink]="['/step-two']">
+        <button class="btn-success form-control" [routerLink]="['/step-two']" (click)="updateObject()">
           Confirmar
         </button>
       </div>

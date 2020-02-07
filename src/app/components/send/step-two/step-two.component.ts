@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 // angular imports
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { of, empty } from 'rxjs';
 
 import { TestService } from 'src/app/services/test.service';
 import { Cidade } from 'src/app/models/cidade';
 import { Estado } from 'src/app/models/estado';
+import { MultiStepService } from '../../../services/multi-step.service';
+import { SendData } from '../../../mocks/send-data';
 
 @Component({
   selector: 'app-step-two',
@@ -20,9 +21,11 @@ export class StepTwoComponent implements OnInit {
 
   estadoSelected = false;
   cidadeSelected = false;
-  objectTest = null;
+  objectTest: Cidade = null;
 
+  // form setup
   form: FormGroup;
+  sendData: SendData = new SendData();
 
   cidades: Cidade[];
   estados: Estado[];
@@ -30,17 +33,31 @@ export class StepTwoComponent implements OnInit {
 
   constructor(
     private testService: TestService,
-    private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private ms: MultiStepService
   ) {}
 
   ngOnInit() {
+
+    this.ms.data.subscribe(doc => {
+      this.sendData.departure = doc.departure;
+      this.sendData.destination = doc.destination;
+      
+      this.sendData.departureSpot = doc.departureSpot;
+      this.sendData.receiverName = doc.receiverName;
+      this.sendData.receiverContact = doc.receiverContact;
+      console.log(this.sendData);
+    });
+
     this.testService
       .getEstados()
       .subscribe(estados => (this.estados = estados));
 
     this.form = this.formBuilder.group({
-      category: [null]
+      category: [null, [Validators.required]],
+      product: [null, [Validators.required]],
+      orderDetails: [null, [Validators.required]],
+      orderSize: [null, [Validators.required]]
     });
   }
 
@@ -99,4 +116,15 @@ export class StepTwoComponent implements OnInit {
     }
     this.form.reset();
   }
+
+  updateObject() {
+
+    this.sendData.category = this.estados[this.objectTest.estado].nome;
+    this.sendData.product = this.objectTest.nome;
+    this.sendData.orderDetails = this.form.get('orderDetails').value;
+    this.sendData.orderSize = this.form.get('orderSize').value;
+
+    this.ms.updateSendDataSource(this.sendData);
+  }
+
 }
