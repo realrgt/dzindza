@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { tap, map, switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { SendData } from '../../../mocks/send-data';
   styleUrls: ['./step-two.component.scss'],
   preserveWhitespaces: true
 })
-export class StepTwoComponent implements OnInit {
+export class StepTwoComponent implements OnInit, AfterContentInit {
 
   estadoSelected = false;
   cidadeSelected = false;
@@ -49,6 +49,11 @@ export class StepTwoComponent implements OnInit {
       this.sendData.departureSpot = doc.departureSpot;
       this.sendData.receiverName = doc.receiverName;
       this.sendData.receiverContact = doc.receiverContact;
+       // fill onComeBack
+      this.sendData.category = doc.category;
+      this.sendData.orderDetails = doc.orderDetails;
+      this.sendData.product = doc.product;
+      this.sendData.orderSize = doc.orderSize;
       console.log(this.sendData);
     });
 
@@ -60,6 +65,13 @@ export class StepTwoComponent implements OnInit {
       orderDetails: [null, [Validators.required]],
       orderSize: [null, [Validators.required]]
     });
+  }
+
+  ngAfterContentInit() {
+    if (this.sendData) {
+      this.form.get('orderDetails').setValue(this.sendData.orderDetails);
+      this.form.get('orderSize').setValue(this.sendData.orderSize);
+    }
   }
 
   selectEstado(estado: Estado) {

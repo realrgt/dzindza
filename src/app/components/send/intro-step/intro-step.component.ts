@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SendData } from '../../../mocks/send-data';
 import { MultiStepService } from '../../../services/multi-step.service';
@@ -12,7 +12,7 @@ import { GeoLocationService } from 'src/app/services/geo-location.service';
   templateUrl: './intro-step.component.html',
   styleUrls: ['./intro-step.component.scss']
 })
-export class IntroStepComponent implements OnInit {
+export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private ms: MultiStepService,
@@ -63,8 +63,21 @@ export class IntroStepComponent implements OnInit {
   ngOnInit() {
 
     this.ms.data.subscribe(doc => {
-      console.log(doc);
+      // console.log(doc);
       this.sendData = doc;
+
+      // fill onComeBack
+      this.sendData.departure = doc.departure;
+      this.sendData.destination = doc.destination;
+      this.sendData.category = doc.category;
+      this.sendData.departureSpot = doc.departureSpot;
+      this.sendData.orderDetails = doc.orderDetails;
+      this.sendData.product = doc.product;
+      this.sendData.receiverName = doc.receiverName;
+      this.sendData.receiverContact = doc.receiverContact;
+
+      console.log(this.sendData);
+
     });
 
     this.form = this.formBuilder.group({
@@ -82,6 +95,13 @@ export class IntroStepComponent implements OnInit {
       };
     });
 
+  }
+
+  ngAfterContentInit() {
+    if (this.sendData) {
+      this.form.get('departure').setValue(this.sendData.departure);
+      this.form.get('destination').setValue(this.sendData.destination);
+    }
   }
 
   public handleAddressChange1(address1: any) {
@@ -144,4 +164,9 @@ export class IntroStepComponent implements OnInit {
     this.sendData.destination = this.form.get('destination').value;
     this.ms.updateSendDataSource(this.sendData);
   }
+
+  ngOnDestroy() {
+    this.ms.orders.subscribe().unsubscribe();
+  }
+
 }

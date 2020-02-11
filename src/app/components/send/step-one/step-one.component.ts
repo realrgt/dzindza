@@ -69,9 +69,19 @@ export class StepOneComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.ms.data.subscribe(doc => {
-      console.log(doc);
       this.sendData.departure = doc.departure;
       this.sendData.destination = doc.destination;
+
+      // fill onComeBack
+      this.sendData.category = doc.category;
+      this.sendData.departureSpot = doc.departureSpot;
+      this.sendData.orderDetails = doc.orderDetails;
+      this.sendData.orderSize = doc.orderSize;
+      this.sendData.product = doc.product;
+      this.sendData.receiverName = doc.receiverName;
+      this.sendData.receiverContact = doc.receiverContact;
+      console.log(this.sendData);
+
     });
 
     this.form = this.formBuilder.group({
@@ -95,6 +105,9 @@ export class StepOneComponent implements OnInit, AfterContentInit {
     if (this.sendData) {
       this.form.get('departure').setValue(this.sendData.departure);
       this.form.get('destination').setValue(this.sendData.destination);
+      this.form.get('departureSpot').setValue(this.sendData.departureSpot);
+      this.form.get('receiverName').setValue(this.sendData.receiverName);
+      this.form.get('receiverContact').setValue(this.sendData.receiverContact);
     }
   }
 
@@ -166,4 +179,5 @@ export class StepOneComponent implements OnInit, AfterContentInit {
 
     this.ms.updateSendDataSource(this.sendData);
   }
+
 }
