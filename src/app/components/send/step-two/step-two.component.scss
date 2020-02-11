@@ -5,12 +5,13 @@
 }
 
 .grid > div:nth-child(odd) {
-  background: #eef;
+  // background: #eef;
   height: 30px;
   margin-top: 80px;
-  border: 1px solid transparent;
-  box-shadow: 1px 1px 1px;
-  border-radius: 50%;
+  // border: 1px solid transparent;
+  // box-shadow: 1px 1px 1px;
+  // border-radius: 50%;
+  cursor: pointer;
 }
 // Horizontal scroll feature
 .scrolling-wrapper {

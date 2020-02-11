@@ -30,6 +30,10 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
 
   validationMsgs = sendValidationMessages; // array of validation messages
 
+  // image processing
+  file: File;
+  imgSrc: string;
+
   cidades: Cidade[];
   estados: Estado[];
   categories: any = [];
@@ -53,7 +57,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
       this.sendData.departureSpot = doc.departureSpot;
       this.sendData.receiverName = doc.receiverName;
       this.sendData.receiverContact = doc.receiverContact;
-       // fill onComeBack
+      // fill onComeBack
       this.sendData.category = doc.category;
       this.sendData.orderDetails = doc.orderDetails;
       this.sendData.product = doc.product;
@@ -66,7 +70,15 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
       .subscribe(estados => (this.estados = estados));
 
     this.form = this.formBuilder.group({
-      orderDetails: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(255)]],
+      orderImage: [null, Validators.required],
+      orderDetails: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(15),
+          Validators.maxLength(255)
+        ]
+      ],
       orderSize: [null, [Validators.required]]
     });
   }
@@ -90,7 +102,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
         map(estados =>
           estados && estados.length > 0 ? estados[0].id : empty()
         ),
-        switchMap((idEstado: number) => this.testService.getCidades(idEstado)),
+        switchMap((idEstado: number) => this.testService.getCidades(idEstado))
       )
       .subscribe(cidades => (this.cidades = cidades));
   }
@@ -128,6 +140,13 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
     this.ms.updateSendDataSource(this.sendData);
   }
 
+  handleFile(file: File) {
+    this.file = file;
+    const reader = new FileReader();
+    reader.onload = (event: any) => (this.imgSrc = event.target.result);
+    reader.readAsDataURL(file);
+  }
+
   showOtherView() {
     this.showResult = !this.showResult;
     this.showStepTwo = !this.showStepTwo;
@@ -135,11 +154,9 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
     if (this.showResult) {
       this.updateObject();
     }
-
   }
 
   onSubmit() {
     this.ms.addOrder(this.sendData);
   }
-
 }

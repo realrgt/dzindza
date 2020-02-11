@@ -26,5 +26,6 @@ export const sendValidationMessages = {
       message: 'Detalhes da encomenda de ter o mínimo de 15 caracteres'
     },
     { type: 'maxlength', message: 'Ultrapassou o máximo de 255 caracteres' }
-  ]
+  ],
+  orderImage: [{ type: 'required', message: 'Selecione uma foto' }]
 };
