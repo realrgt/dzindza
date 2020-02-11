@@ -7,17 +7,24 @@
         <br /> <br />
     </div>
     <!-- carousel menu -->
-
-    <div class="scrolling-wrapper mt-3 animated fadeInRight" *ngIf="!estadoSelected">
-        <div class="card" *ngFor="let estado of estados" (click)="selectEstado(estado)">
-            <h6 class="text-center">{{ estado.nome }}</h6>
+    <div class="grid" *ngIf="!estadoSelected">
+        <div class="text-center">
+            <</div> <div class="scrolling-wrapper mt-3 animated fadeInRight" >
+                <div class="card" *ngFor="let estado of estados" (click)="selectEstado(estado)">
+                    <h6 class="text-center">{{ estado.nome }}</h6>
+                </div>
         </div>
+        <div class="text-center">></div>
     </div>
 
-    <div class="scrolling-wrapper mt-3 animated fadeInRight" *ngIf="!cidadeSelected">
-        <div class="card" *ngFor="let cidade of cidades" (click)="fillCity(cidade)">
-            <h6 class="text-muted text-center">{{ cidade.nome }}</h6>
+    <div class="grid" *ngIf="!cidadeSelected && !showButton">
+        <div class="text-center">
+            <</div> <div class="scrolling-wrapper mt-3 animated fadeInRight">
+                <div class="card" *ngFor="let cidade of cidades" (click)="fillCity(cidade)">
+                    <h6 class="text-muted text-center">{{ cidade.nome }}</h6>
+                </div>
         </div>
+        <div class="text-center">></div>
     </div>
 
     <!-- product details -->
@@ -39,11 +46,11 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-6 w-100 mb-4 animated fadeIn div-delay">
                 <textarea rows="3" cols="3" class="form-control" placeholder="Detalhes da encomenda..."
                     formControlName="orderDetails"></textarea>
-                    <small *ngFor="let validation of validationMsgs.orderDetails">
-                        <small class="text-danger"
-                            *ngIf="form.get('orderDetails').hasError(validation.type) && (form.get('orderDetails').dirty || form.get('orderDetails').touched)">{{ validation.message }}
-                        </small>
+                <small *ngFor="let validation of validationMsgs.orderDetails">
+                    <small class="text-danger"
+                        *ngIf="form.get('orderDetails').hasError(validation.type) && (form.get('orderDetails').dirty || form.get('orderDetails').touched)">{{ validation.message }}
                     </small>
+                </small>
                 <div class="row mt-2" *ngIf="objectTest !== null && objectTest !== undefined">
                     <div class="col-auto">
                         <button type="button" class="form-control btn btn-block btn-light" (click)="addCategory()">
@@ -126,7 +133,7 @@
             </div>
             <!-- product to send details -->
             <div class="col-6 col-md-6 mb-4 animated fadeIn div-delay product-to-send alert alert-light">
-            <label><b> {{ sendData.product }}</b></label>
+                <label><b> {{ sendData.product }}</b></label>
                 <p> S10 novo... </p>
             </div>
         </div>
@@ -170,7 +177,8 @@
                 </button>
             </div>
             <div class="col-5 animated div-delay">
-                <button type="submit" class="btn-success form-control" [routerLink]="['/step-three']" (click)="onSubmit()">
+                <button type="submit" class="btn-success form-control" [routerLink]="['/step-three']"
+                    (click)="onSubmit()">
                     Confirmar
                 </button>
             </div>

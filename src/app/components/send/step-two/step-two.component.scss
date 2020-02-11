@@ -1,3 +1,17 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 30fr 1fr;
+  grid-column-gap: 2px;
+}
+
+.grid > div:nth-child(odd) {
+  background: #eef;
+  height: 30px;
+  margin-top: 80px;
+  border: 1px solid transparent;
+  box-shadow: 1px 1px 1px;
+  border-radius: 50%;
+}
 // Horizontal scroll feature
 .scrolling-wrapper {
   overflow-x: scroll;

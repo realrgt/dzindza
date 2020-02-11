@@ -2,10 +2,8 @@ import {
   Component,
   OnInit,
   ViewChild,
-  AfterViewInit,
   AfterContentInit
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MultiStepService } from '../../../services/multi-step.service';
 import { SendData } from '../../../mocks/send-data';

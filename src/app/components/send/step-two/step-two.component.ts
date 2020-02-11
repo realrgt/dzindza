@@ -22,6 +22,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   estadoSelected = false;
   cidadeSelected = false;
   objectTest: Cidade = null;
+  showButton = true;
 
   // form setup
   form: FormGroup;
@@ -80,6 +81,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   selectEstado(estado: Estado) {
     this.estadoSelected = true;
     this.cidadeSelected = false;
+    this.showButton = false;
 
     of(estado)
       .pipe(
