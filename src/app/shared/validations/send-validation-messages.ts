@@ -1,39 +1,30 @@
 export const sendValidationMessages = {
-  username: [
-    { type: 'required', message: 'Username is required' },
+  departure: [
+    { type: 'required', message: 'Endereço de partida é obrigatório' }
+  ],
+  destination: [
+    { type: 'required', message: 'Endereço de destino é obrigatório' }
+  ],
+  departureSpot: [
+    { type: 'required', message: 'Ponto de partida é obrigatório' }
+  ],
+  receiverName: [
+    { type: 'required', message: 'Nome do receptor é obrigatório' },
     {
       type: 'minlength',
-      message: 'Username must be at least 5 characters long'
-    },
-    {
-      type: 'maxlength',
-      message: 'Username cannot be more than 25 characters long'
-    },
-    {
-      type: 'pattern',
-      message: 'Your username must contain only numbers and letters'
-    },
-    { type: 'validUsername', message: 'Your username has already been taken' }
-  ],
-  email: [
-    { type: 'required', message: 'Email is required' },
-    { type: 'pattern', message: 'Enter a valid email' }
-  ],
-  confirm_password: [
-    { type: 'required', message: 'Confirm password is required' },
-    { type: 'areEqual', message: 'Password mismatch' }
-  ],
-  password: [
-    { type: 'required', message: 'Password is required' },
-    {
-      type: 'minlength',
-      message: 'Password must be at least 5 characters long'
-    },
-    {
-      type: 'pattern',
-      message:
-        'Your password must contain at least one uppercase, one lowercase, and one number'
+      message: 'Nome do receptor deve ter o mínimo de 3 caracteres'
     }
   ],
-  terms: [{ type: 'pattern', message: 'You must accept terms and conditions' }]
+  receiverContact: [
+    { type: 'required', message: 'Contacto do receptor é obrigatório' },
+    { type: 'contactTaken', message: 'Contacto não disponivel, já foi usado' }
+  ],
+  orderDetails: [
+    { type: 'required', message: 'Detalhes da encomenda é obrigatório' },
+    {
+      type: 'minlength',
+      message: 'Detalhes da encomenda de ter o mínimo de 15 caracteres'
+    },
+    { type: 'maxlength', message: 'Ultrapassou o máximo de 255 caracteres' }
+  ]
 };

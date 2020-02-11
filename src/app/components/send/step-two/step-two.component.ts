@@ -9,6 +9,7 @@ import { Cidade } from 'src/app/models/cidade';
 import { Estado } from 'src/app/models/estado';
 import { MultiStepService } from '../../../services/multi-step.service';
 import { SendData } from '../../../mocks/send-data';
+import { sendValidationMessages } from '../../../shared/validations/send-validation-messages';
 
 @Component({
   selector: 'app-step-two',
@@ -25,6 +26,8 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   // form setup
   form: FormGroup;
   sendData: SendData = new SendData();
+
+  validationMsgs = sendValidationMessages; // array of validation messages
 
   cidades: Cidade[];
   estados: Estado[];
@@ -62,7 +65,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
       .subscribe(estados => (this.estados = estados));
 
     this.form = this.formBuilder.group({
-      orderDetails: [null, [Validators.required]],
+      orderDetails: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(255)]],
       orderSize: [null, [Validators.required]]
     });
   }

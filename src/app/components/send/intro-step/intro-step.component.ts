@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SendData } from '../../../mocks/send-data';
 import { MultiStepService } from '../../../services/multi-step.service';
@@ -7,12 +7,15 @@ import { MultiStepService } from '../../../services/multi-step.service';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { GeoLocationService } from 'src/app/services/geo-location.service';
 
+// const imports
+import { sendValidationMessages } from '../../../shared/validations/send-validation-messages';
+
 @Component({
   selector: 'app-intro-step',
   templateUrl: './intro-step.component.html',
   styleUrls: ['./intro-step.component.scss']
 })
-export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
+export class IntroStepComponent implements OnInit, AfterContentInit {
   constructor(
     private formBuilder: FormBuilder,
     private ms: MultiStepService,
@@ -22,6 +25,8 @@ export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
   // form setup
   form: FormGroup;
   sendData: SendData;
+
+  validationMsgs = sendValidationMessages; // array of validation messages
 
   // google-place-autocomplete
   @ViewChild('placesRef', { static: false }) placesRef: GooglePlaceDirective;
@@ -62,6 +67,8 @@ export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnInit() {
 
+    console.log(this.validationMsgs);
+
     this.ms.data.subscribe(doc => {
       // console.log(doc);
       this.sendData = doc;
@@ -84,8 +91,6 @@ export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
       departure: [null, [Validators.required]],
       destination: [null, [Validators.required]]
     });
-
-    // this.sendData = this.form.getRawValue();
 
     // picking actual google-map location
     this.geoLocationService.getPosition().subscribe((position: Position) => {
@@ -163,10 +168,6 @@ export class IntroStepComponent implements OnInit, AfterContentInit, OnDestroy {
     this.sendData.departure = this.form.get('departure').value;
     this.sendData.destination = this.form.get('destination').value;
     this.ms.updateSendDataSource(this.sendData);
-  }
-
-  ngOnDestroy() {
-    this.ms.orders.subscribe().unsubscribe();
   }
 
 }

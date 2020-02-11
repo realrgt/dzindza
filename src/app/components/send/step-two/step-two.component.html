@@ -39,6 +39,11 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-6 w-100 mb-4 animated fadeIn div-delay">
                 <textarea rows="3" cols="3" class="form-control" placeholder="Detalhes da encomenda..."
                     formControlName="orderDetails"></textarea>
+                    <small *ngFor="let validation of validationMsgs.orderDetails">
+                        <small class="text-danger"
+                            *ngIf="form.get('orderDetails').hasError(validation.type) && (form.get('orderDetails').dirty || form.get('orderDetails').touched)">{{ validation.message }}
+                        </small>
+                    </small>
                 <div class="row mt-2" *ngIf="objectTest !== null && objectTest !== undefined">
                     <div class="col-auto">
                         <button type="button" class="form-control btn btn-block btn-light" (click)="addCategory()">

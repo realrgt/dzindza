@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="text-center">
         <img class="animated send-icon" [class.bounceIn]="showEffect" src="assets/img/logo-send.png">
@@ -9,59 +8,82 @@
             <p class="animated p-intro p-two" [class.zoomIn]="showEffect"> Sou o <b><i>leeva</i></b> </p>
             <p class="animated p-intro p-three" [class.zoomIn]="showEffect"> O seu entregador de encomendas </p>
             <br /> <br />
-            <p class="animated p-intro p-four" [class.zoomIn]="showEffect" style="font-size: 16pt; font-weight: 500;"> <b>Para onde vai sua encomenda?</b> </p>
+            <p class="animated p-intro p-four" [class.zoomIn]="showEffect" style="font-size: 16pt; font-weight: 500;">
+                <b>Para onde vai sua encomenda?</b> </p>
         </div>
     </div>
     <form [formGroup]="form" class="form-group mt-4">
+        
         <div class="row justify-content-center" *ngIf="showThird">
             <div class="col-8 col-md-8 mb-4 animated div-delay justify-content-center" [class.fadeIn]="showEffect">
                 <!-- google-places-autocomplete -->
-                <input type="text" class="form-control" placeholder="De: " (focus)="onFocusFrom()" formControlName="departure"/>
-                <!-- map selection option -->
-                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon" (click)="onSelectFrom()">
-                    <a class="text-dark"><span class="far fa-map fa-lg"></span>
-                        <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
-                    </a>
-                </div>
-                <!-- angular-google-map here! -->
-                <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" (mapClick)="onChoseLocation($event)"
-                        [latitude]="latitude" [longitude]="longitude" [zoom]="15" *ngIf="mapFrom">
-                        <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
-                </agm-map>
-                <!-- <div class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" *ngIf="mapFrom">
-                    <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
-                </div> -->
-                <!-- google map location select -->
-                <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton" (click)="onFromLocationSelect()"> É aqui! </button>
+                <input type="text" class="form-control" placeholder="De: " (focus)="onFocusFrom()"
+                    formControlName="departure" />
+                <small *ngFor="let validation of validationMsgs.departure">
+                    <small class="text-danger"
+                        *ngIf="form.get('departure').hasError(validation.type) && (form.get('departure').dirty || form.get('departure').touched)"
+                        >{{ validation.message }}
+                    </small>
+                </small>
+            <!-- map selection option -->
+            <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon"
+                (click)="onSelectFrom()">
+                <a class="text-dark"><span class="far fa-map fa-lg"></span>
+                    <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
+                </a>
+            </div>
+            <!-- angular-google-map here! -->
+            <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center"
+                (mapClick)="onChoseLocation($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="15" *ngIf="mapFrom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
+            </agm-map>
+            <!-- <div class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" *ngIf="mapFrom">
+                            <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
+                        </div> -->
+            <!-- google map location select -->
+            <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton"
+                (click)="onFromLocationSelect()"> É aqui! </button>
             </div>
         </div>
+
         <div class="row justify-content-center" *ngIf="showFirst && showSecond">
             <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
                 <!-- google-places-autocomplete -->
-                <input type="text" class="form-control" placeholder="Enviar para..." (focus)="onFocusTo()" formControlName="destination" />
+                <input type="text" class="form-control" placeholder="Enviar para..." (focus)="onFocusTo()"
+                    formControlName="destination" />
+                    <small *ngFor="let validation of validationMsgs.destination">
+                        <small class="text-danger"
+                            *ngIf="form.get('destination').hasError(validation.type) && (form.get('destination').dirty || form.get('destination').touched)"
+                            >{{ validation.message }}
+                        </small>
+                    </small>
                 <!-- map selection option -->
-                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapToIcon" (click)="onSelectTo()">
+                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;"
+                    *ngIf="mapToIcon" (click)="onSelectTo()">
                     <a class="text-dark"><span class="far fa-map fa-lg"></span>
                         <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
                     </a>
                 </div>
                 <!-- angular-google-map -->
-                <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" (mapClick)="onChoseLocation($event)"
-                         [latitude]="latitude" [longitude]="longitude" [zoom]="15" *ngIf="mapTo">
-                         <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
+                <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center"
+                    (mapClick)="onChoseLocation($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="15"
+                    *ngIf="mapTo">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
                 </agm-map>
                 <!-- <div class="google-map mt-3 col-12 col-md-12 animated fadeIn" *ngIf="mapTo">
                     <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
                 </div> -->
                 <!-- google map location select -->
-                <button type="button" class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton" (click)="onToLocationSelect()"> É aqui! </button>
+                <button type="button" class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton"
+                    (click)="onToLocationSelect()"> É aqui! </button>
             </div>
         </div>
         <!-- button -->
         <div class="row justify-content-center">
             <div class="col-8 col-md-8 animated div-delay" [class.fadeIn]="showEffect" *ngIf="showFirst && showThird">
-                <button type="button" class="btn-sm btn-success form-control" [routerLink]="['/step-one']" (click)="updateObject()" > 
-                    Confirmar 
+                <button type="button" class="btn-sm btn-success form-control" [routerLink]="['/step-one']"
+                    (click)="updateObject()">
+                    Confirmar
                 </button>
             </div>
         </div>

@@ -12,6 +12,7 @@ import { SendData } from '../../../mocks/send-data';
 
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { GeoLocationService } from 'src/app/services/geo-location.service';
+import { sendValidationMessages } from '../../../shared/validations/send-validation-messages';
 
 @Component({
   selector: 'app-step-one',
@@ -28,6 +29,8 @@ export class StepOneComponent implements OnInit, AfterContentInit {
   // form setup
   form: FormGroup;
   sendData: SendData = new SendData();
+
+  validationMsgs = sendValidationMessages; // array of validation messages
 
   // google-place-autocomplete
   @ViewChild('placesRef', { static: false }) placesRef: GooglePlaceDirective;
@@ -88,7 +91,7 @@ export class StepOneComponent implements OnInit, AfterContentInit {
       departure: [null, [Validators.required]],
       departureSpot: [null, [Validators.required]],
       destination: [null, [Validators.required]],
-      receiverName: [null, [Validators.required]],
+      receiverName: [null, [Validators.required, Validators.minLength(3)]],
       receiverContact: [null, [Validators.required]]
     });
 

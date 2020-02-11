@@ -1,95 +1,133 @@
 <div class="container">
-  <!-- stepper -->
-  <app-stepper [sendStepper]="showStepOne"></app-stepper>
-  <div class="row" *ngIf="showFirst && showSecond">
-      <p class="animated p-intro p-one mt-5" [class.zoomIn]="showEffect" style="font-size: 16pt; font-weight: 500;"> A quem vamos entregar? </p>
-      <br /> <br />
-  </div>
-  <form [formGroup]="form" class="form-group mt-5">
-      <div class="row justify-content-center" *ngIf="showSecond">
-          <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
-              <input type="text" class="form-control input-box" placeholder="Endereço de partida" (focus)="onFocusFrom()" formControlName="departure" />
-              <span class="fa fa-map-marker-alt input-icon"></span>
-              <!-- map selection option -->
-              <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapFromIcon" (click)="onSelectFrom()">
-                  <a class="text-dark"><span class="far fa-map fa-lg"></span>
-                      <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
-                  </a>
-              </div>
-              <!-- angular-google-map -->
-              <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" (mapClick)="onChoseLocation($event)"
-                      [latitude]="latitude" [longitude]="longitude" [zoom]="15" *ngIf="mapFrom">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
-              </agm-map>
-              <!-- <div class="google-map mt-3 col-12 col-md-12 animated fadeIn" *ngIf="mapFrom">
+    <!-- stepper -->
+    <app-stepper [sendStepper]="showStepOne"></app-stepper>
+    <div class="row" *ngIf="showFirst && showSecond">
+        <p class="animated p-intro p-one mt-5" [class.zoomIn]="showEffect" style="font-size: 16pt; font-weight: 500;"> A
+            quem vamos entregar? </p>
+        <br /> <br />
+    </div>
+    <form [formGroup]="form" class="form-group mt-5">
+        <div class="row justify-content-center" *ngIf="showSecond">
+            <div class="col-8 col-md-8 animated div-delay" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Endereço de partida"
+                    (focus)="onFocusFrom()" formControlName="departure" />
+                <span class="fa fa-map-marker-alt input-icon"></span>
+                <small *ngFor="let validation of validationMsgs.departure">
+                    <small class="text-danger"
+                        *ngIf="form.get('departure').hasError(validation.type) && (form.get('departure').dirty || form.get('departure').touched)">{{ validation.message }}
+                    </small>
+                </small>
+                <!-- map selection option -->
+                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;"
+                    *ngIf="mapFromIcon" (click)="onSelectFrom()">
+                    <a class="text-dark"><span class="far fa-map fa-lg"></span>
+                        <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
+                    </a>
+                </div>
+                <!-- angular-google-map -->
+                <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center"
+                    (mapClick)="onChoseLocation($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="15"
+                    *ngIf="mapFrom">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
+                </agm-map>
+                <!-- <div class="google-map mt-3 col-12 col-md-12 animated fadeIn" *ngIf="mapFrom">
                   <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
               </div> -->
-              <!-- google map location select -->
-              <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton" (click)="onFromLocationSelect()"> É aqui! </button>
-              <br />
-              <!-- separating the addresses -->
-              <hr *ngIf="showFirst" />
-          </div>
-      </div>
-      <div class="row justify-content-center" *ngIf="showFirst && showThirth">
-          <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
-              <input type="text" class="form-control input-box" placeholder="Endereço do Receptor" (focus)="onFocusTo()" formControlName="destination" />
-              <span class="fa fa-map-marker-alt input-icon"></span>
-              <!-- map selection option -->
-              <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;" *ngIf="mapToIcon" (click)="onSelectTo()">
-                  <a class="text-dark"><span class="far fa-map fa-lg"></span>
-                      <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
-                  </a>
-              </div>
-              <!-- google map here! -->
-              <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center" (mapClick)="onChoseLocation($event)"
-                      [latitude]="latitude" [longitude]="longitude" [zoom]="15" *ngIf="mapTo">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
-              </agm-map>
-              <!-- <div class="google-map mt-3 col-12 col-md-12  animated fadeIn" *ngIf="mapTo">
+                <!-- google map location select -->
+                <button class="form-control btn-light mt-2 animated fadeIn" *ngIf="mapSelectButton"
+                    (click)="onFromLocationSelect()"> É aqui! </button>
+                <br />
+                <!-- separating the addresses -->
+                <hr class="mt-n2" *ngIf="showFirst" />
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showThirth">
+            <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Endereço do Receptor"
+                    (focus)="onFocusTo()" formControlName="destination" />
+                <span class="fa fa-map-marker-alt input-icon"></span>
+                <small *ngFor="let validation of validationMsgs.destination">
+                    <small class="text-danger"
+                        *ngIf="form.get('destination').hasError(validation.type) && (form.get('destination').dirty || form.get('destination').touched)">{{ validation.message }}
+                    </small>
+                </small>
+                <!-- map selection option -->
+                <div class="form-control alert alert-secondary animated fadeIn" style="cursor: pointer;"
+                    *ngIf="mapToIcon" (click)="onSelectTo()">
+                    <a class="text-dark"><span class="far fa-map fa-lg"></span>
+                        <span style="position: absolute; left: 70px;"> ou seleccione pelo mapa... </span>
+                    </a>
+                </div>
+                <!-- google map here! -->
+                <agm-map class="google-map mt-3 animated fadeIn col-12 col-md-12 justify-content-center"
+                    (mapClick)="onChoseLocation($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="15"
+                    *ngIf="mapTo">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" *ngIf="locationChosen"></agm-marker>
+                </agm-map>
+                <!-- <div class="google-map mt-3 col-12 col-md-12  animated fadeIn" *ngIf="mapTo">
                   <span class="fa fa-map-marker-alt fa-lg" style="margin-left: 70%; margin-top: 20%;"></span>
               </div> -->
-              <!-- google map location select -->
-              <button class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton" (click)="onToLocationSelect()"> É aqui! </button>
-          </div>
-      </div>
-      <div class="row justify-content-center" *ngIf="showFirst && showSecond">
-          <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
-              <select class="form-control input-box" placeholder="Onde levar" formControlName="departureSpot">
-                  <option value="" selected> Onde levar </option>
-                  <option value="Aeroporto"> Aeroporto </option>
-                  <option value="Casa"> Casa </option>
-                  <option value="Paragem"> Paragem </option>
-                  <option value="Empresa"> Empresa </option>
-                  <option value="Lugar Público"> Lugar Público </option>
-              </select>
-              <span class="fa fa-dolly-flatbed input-icon"></span>
-          </div>
-      </div>
-      <div class="row justify-content-center" *ngIf="showFirst && showSecond">
-          <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
-              <input type="text" class="form-control input-box" placeholder="Nome do Receptor" formControlName="receiverName">
-              <span class="far fa-user input-icon"></span>
-          </div>
-      </div>
-      <div class="row justify-content-center" *ngIf="showFirst && showSecond">
-          <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
-              <input type="text" class="form-control input-box" placeholder="Contacto do Receptor" formControlName="receiverContact">
-              <span class="fa fa-phone-alt input-icon"></span>
-          </div>
-      </div>
-      <!-- button -->
-      <div class="row justify-content-center" *ngIf="showFirst && showSecond">
-          <div class="col-4 col-md-4 animated div-delay" [class.fadeIn]="showEffect">
-              <button type="button" class="btn-sm btn-light form-control" (click)="goBack()" [routerLink]="['/intro-step']" > 
-                  Voltar 
-              </button>
-          </div>
-          <div class="col-4 col-md-4 animated div-delay" [class.fadeIn]="showEffect">
-              <button type="button" class="btn-sm btn-success form-control" [routerLink]="['/step-two']" (click)="updateObject()" > 
-                  Confirmar 
-              </button>
-          </div>
-      </div>
-  </form>
+                <!-- google map location select -->
+                <button class="form-control btn-light mt-2  animated fadeIn" *ngIf="mapSelectButton"
+                    (click)="onToLocationSelect()"> É aqui! </button>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
+                <select class="form-control input-box" placeholder="Onde levar" formControlName="departureSpot">
+                    <option value="" selected> Onde levar </option>
+                    <option value="Aeroporto"> Aeroporto </option>
+                    <option value="Casa"> Casa </option>
+                    <option value="Paragem"> Paragem </option>
+                    <option value="Empresa"> Empresa </option>
+                    <option value="Lugar Público"> Lugar Público </option>
+                </select>
+                <span class="fa fa-dolly-flatbed input-icon"></span>
+                <small *ngFor="let validation of validationMsgs.departureSpot">
+                    <small class="text-danger"
+                        *ngIf="form.get('departureSpot').hasError(validation.type) && (form.get('departureSpot').dirty || form.get('departureSpot').touched)">{{ validation.message }}
+                    </small>
+                </small>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Nome do Receptor"
+                    formControlName="receiverName">
+                <span class="far fa-user input-icon"></span>
+                <small *ngFor="let validation of validationMsgs.receiverName">
+                    <small class="text-danger"
+                        *ngIf="form.get('receiverName').hasError(validation.type) && (form.get('receiverName').dirty || form.get('receiverName').touched)">{{ validation.message }}
+                    </small>
+                </small>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-8 col-md-8 mb-4 animated div-delay" [class.fadeIn]="showEffect">
+                <input type="text" class="form-control input-box" placeholder="Contacto do Receptor"
+                    formControlName="receiverContact">
+                <span class="fa fa-phone-alt input-icon"></span>
+                <small *ngFor="let validation of validationMsgs.receiverContact">
+                    <small class="text-danger"
+                        *ngIf="form.get('receiverContact').hasError(validation.type) && (form.get('receiverContact').dirty || form.get('receiverContact').touched)">{{ validation.message }}
+                    </small>
+                </small>
+            </div>
+        </div>
+        <!-- button -->
+        <div class="row justify-content-center" *ngIf="showFirst && showSecond">
+            <div class="col-4 col-md-4 animated div-delay" [class.fadeIn]="showEffect">
+                <button type="button" class="btn-sm btn-light form-control" (click)="goBack()"
+                    [routerLink]="['/intro-step']">
+                    Voltar
+                </button>
+            </div>
+            <div class="col-4 col-md-4 animated div-delay" [class.fadeIn]="showEffect">
+                <button type="button" class="btn-sm btn-success form-control" [routerLink]="['/step-two']"
+                    (click)="updateObject()">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
