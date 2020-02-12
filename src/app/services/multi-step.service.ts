@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { SendData } from '../mocks/send-data';
+import { SendData } from '../models/send-data';
 import {
   AngularFirestoreCollection,
   AngularFirestore

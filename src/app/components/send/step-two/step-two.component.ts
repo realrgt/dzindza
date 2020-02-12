@@ -1,14 +1,17 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { tap, map, switchMap } from 'rxjs/operators';
-import { of, empty } from 'rxjs';
+import { tap, map, switchMap, finalize } from 'rxjs/operators';
+import { of, empty, Observable } from 'rxjs';
+
+// firestore imports
+import { AngularFireStorage } from '@angular/fire/storage';
 
 import { TestService } from 'src/app/services/test.service';
 import { Cidade } from 'src/app/models/cidade';
 import { Estado } from 'src/app/models/estado';
 import { MultiStepService } from '../../../services/multi-step.service';
-import { SendData } from '../../../mocks/send-data';
+import { SendData } from '../../../models/send-data';
 import { sendValidationMessages } from '../../../shared/validations/send-validation-messages';
 
 @Component({
@@ -18,7 +21,6 @@ import { sendValidationMessages } from '../../../shared/validations/send-validat
   preserveWhitespaces: true
 })
 export class StepTwoComponent implements OnInit, AfterContentInit {
-
   estadoSelected = false;
   cidadeSelected = false;
   objectTest: Cidade = null;
@@ -34,6 +36,9 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   file: File;
   imgSrc: string;
 
+  uploadPercent: Observable<number>;
+  // downloadURL: Observable<string>;
+
   cidades: Cidade[];
   estados: Estado[];
   categories: any = [];
@@ -46,7 +51,8 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   constructor(
     private testService: TestService,
     private formBuilder: FormBuilder,
-    private ms: MultiStepService
+    private ms: MultiStepService,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit() {
@@ -157,6 +163,29 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   }
 
   onSubmit() {
-    this.ms.addOrder(this.sendData);
+    // this.ms.addOrder(this.sendData);
+
+    const file = this.file;
+    const filePath = `images/order_send/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          console.log('Executei 1');
+          fileRef.getDownloadURL().subscribe(url => {
+            this.sendData.orderImage = url;
+            this.ms.addOrder(this.sendData);
+            console.log('Executei 2');
+            // this.resetForm();
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  resetForm() {
+    this.ms.updateSendDataSource(null);
   }
 }

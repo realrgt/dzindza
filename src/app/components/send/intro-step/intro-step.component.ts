@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SendData } from '../../../mocks/send-data';
+import { SendData } from '../../../models/send-data';
 import { MultiStepService } from '../../../services/multi-step.service';
 
 // google-place-autocomplete

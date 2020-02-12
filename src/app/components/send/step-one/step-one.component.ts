@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MultiStepService } from '../../../services/multi-step.service';
-import { SendData } from '../../../mocks/send-data';
+import { SendData } from '../../../models/send-data';
 
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { GeoLocationService } from 'src/app/services/geo-location.service';
