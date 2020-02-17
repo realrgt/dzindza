@@ -7,7 +7,7 @@ export class SendData {
     product?: string;
     orderImage?: string;
     category?: string;
-    orderSize?: number;
+    orderSize?: string;
     receiverName?: string;
     receiverContact?: string;
 }

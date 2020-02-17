@@ -1,18 +1,24 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterContentInit,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { tap, map, switchMap, finalize } from 'rxjs/operators';
-import { of, empty, Observable } from 'rxjs';
+import { map, switchMap, finalize } from 'rxjs/operators';
+import { of, empty } from 'rxjs';
 
 // firestore imports
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { TestService } from 'src/app/services/test.service';
-import { Cidade } from 'src/app/models/cidade';
-import { Estado } from 'src/app/models/estado';
 import { MultiStepService } from '../../../services/multi-step.service';
 import { SendData } from '../../../models/send-data';
 import { sendValidationMessages } from '../../../shared/validations/send-validation-messages';
+import { Product } from '../../../models/scroll/product';
+import { Category } from '../../../models/scroll/category';
+import { ScrollService } from '../../../services/scroll.service';
 
 @Component({
   selector: 'app-step-two',
@@ -21,10 +27,14 @@ import { sendValidationMessages } from '../../../shared/validations/send-validat
   preserveWhitespaces: true
 })
 export class StepTwoComponent implements OnInit, AfterContentInit {
-  estadoSelected = false;
-  cidadeSelected = false;
-  objectTest: Cidade = null;
+  categorySelected = false;
+  productSelected = false;
+  objectTest: Product = null;
   showButton = true;
+  @ViewChild('scrollWrapper', { static: false }) scrollWrapper: ElementRef;
+
+  // selected products
+  orderSelected = false;
 
   // form setup
   form: FormGroup;
@@ -34,13 +44,11 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
 
   // image processing
   file: File;
-  imgSrc: string;
+  // imgSrc: string;
+  imgSrc = 'assets/img/placeholder.jpg';
 
-  uploadPercent: Observable<number>;
-  // downloadURL: Observable<string>;
-
-  cidades: Cidade[];
-  estados: Estado[];
+  product: Product[];
+  category: Category[];
   categories: any = [];
 
   // stepper and view controls
@@ -48,8 +56,13 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   showStepTwo = true;
   showResult = false;
 
+  /* slider att */
+  public size_title = 'Pequeno: ';
+  public size_to_show = 'Máx 5kg ou 100cm';
+  public designation = '(Tamanho de caixa de sapatos)';
+
   constructor(
-    private testService: TestService,
+    private scrollService: ScrollService,
     private formBuilder: FormBuilder,
     private ms: MultiStepService,
     private storage: AngularFireStorage
@@ -68,12 +81,11 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
       this.sendData.orderDetails = doc.orderDetails;
       this.sendData.product = doc.product;
       this.sendData.orderSize = doc.orderSize;
-      console.log(this.sendData);
     });
 
-    this.testService
-      .getEstados()
-      .subscribe(estados => (this.estados = estados));
+    this.scrollService
+      .getCategories()
+      .subscribe(docs => (this.category = docs));
 
     this.form = this.formBuilder.group({
       orderImage: [null, Validators.required],
@@ -85,7 +97,7 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
           Validators.maxLength(255)
         ]
       ],
-      orderSize: [null, [Validators.required]]
+      orderSize: [null]
     });
   }
 
@@ -96,41 +108,68 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
     }
   }
 
-  selectEstado(estado: Estado) {
-    this.estadoSelected = true;
-    this.cidadeSelected = false;
+  selectCategory(category: Category) {
+    this.categorySelected = true;
+    this.productSelected = false;
     this.showButton = false;
 
-    of(estado)
+    of(category)
       .pipe(
-        tap(estado => console.log('Novo estado: ', estado)),
-        map(estado => this.estados.filter(e => e.id === estado.id)),
-        map(estados =>
-          estados && estados.length > 0 ? estados[0].id : empty()
+        map(category => this.category.filter(c => c.id === category.id)),
+        map(categories =>
+          categories && categories.length > 0 ? categories[0].id : empty()
         ),
-        switchMap((idEstado: number) => this.testService.getCidades(idEstado))
+        switchMap((idCategory: number) =>
+          this.scrollService.getProducts(idCategory)
+        )
       )
-      .subscribe(cidades => (this.cidades = cidades));
+      .subscribe(products => (this.product = products));
   }
 
-  fillCity(cidade: Cidade) {
-    this.cidadeSelected = true;
-    this.objectTest = cidade;
-    console.log(this.objectTest);
+  // scrolling
+  scrollRight() {
+    this.scrollWrapper.nativeElement.scrollTo({
+      left: this.scrollWrapper.nativeElement.scrollLeft + 150,
+      behavior: 'smooth'
+    });
   }
 
-  addCategory() {
-    this.categories.push(this.objectTest.nome);
-    for (const c of this.categories) {
-      console.log(c);
-    }
-    this.estadoSelected = false;
-    this.cidadeSelected = true;
+  scrollLeft() {
+    this.scrollWrapper.nativeElement.scrollTo({
+      left: this.scrollWrapper.nativeElement.scrollLeft - 150,
+      behavior: 'smooth'
+    });
   }
+  // END scrolling
+
+  fillProduct(product: Product) {
+    this.productSelected = true;
+    this.objectTest = product;
+    this.orderSelected = true;
+    this.addCategory(true, true, false);
+    this.categories.push(this.objectTest.name);
+  }
+
+  addCategory(controlAdd?: boolean, controlCat?: boolean, controlPro?: boolean) {
+    controlPro = true;
+    // this.categories.push(this.objectTest.name);
+    this.categorySelected = controlCat;
+    this.productSelected = controlPro;
+
+    this.orderSelected = controlAdd;
+  }
+
+  // addCategory() {
+  //   this.categories.push(this.objectTest.name);
+  //   this.categorySelected = false;
+  //   this.productSelected = true;
+
+  //   this.orderSelected = false;
+  // }
 
   removeProduct() {
-    this.estadoSelected = false;
-    this.cidadeSelected = true;
+    this.categorySelected = false;
+    this.productSelected = true;
     if (this.categories.length > 0) {
       this.categories.shift();
     }
@@ -138,10 +177,11 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
   }
 
   updateObject() {
-    this.sendData.category = this.estados[this.objectTest.estado].nome;
-    this.sendData.product = this.objectTest.nome;
+    this.sendData.category = this.category[this.objectTest.category].name;
+    this.sendData.product = this.objectTest.name;
     this.sendData.orderDetails = this.form.get('orderDetails').value;
-    this.sendData.orderSize = this.form.get('orderSize').value;
+    // this.sendData.orderSize = this.form.get('orderSize').value;
+    this.sendData.orderSize = this.size_to_show;
 
     this.ms.updateSendDataSource(this.sendData);
   }
@@ -162,22 +202,48 @@ export class StepTwoComponent implements OnInit, AfterContentInit {
     }
   }
 
-  onSubmit() {
-    // this.ms.addOrder(this.sendData);
+  /* range value change */
+  valueChange(event) {
+    if (event.target.value == 0) {
+      this.size_title = 'Pequeno: ';
+      this.size_to_show = 'Máx 5kg ou 100cm';
+      this.designation = '(Tamanho de caixa de sapatos)';
+    }
 
+    if (event.target.value == 1) {
+      this.size_title = 'Médio: ';
+      this.size_to_show = 'Máx 15kg ou 200cm';
+      this.designation = '(Tamanho de caixa de Microondas)';
+    }
+
+    if (event.target.value == 2) {
+      this.size_title = 'Grande: ';
+      this.size_to_show = 'Máx 50kg ou 300cm';
+      this.designation = '(Tamanho de caixa de Congelador)';
+    }
+
+    if (event.target.value == 3) {
+      this.size_title = 'Extra-Grande: ';
+      this.size_to_show = 'Mais de 50kg';
+      this.designation = '(Tamanhos não listados)';
+    }
+  }
+
+  onSubmit() {
     const file = this.file;
-    const filePath = `images/order_send/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    const filePath = `images/order_send/${this.file.name
+      .split('.')
+      .slice(0, -1)
+      .join('.')}_${new Date().getTime()}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
     task
       .snapshotChanges()
       .pipe(
         finalize(() => {
-          console.log('Executei 1');
           fileRef.getDownloadURL().subscribe(url => {
             this.sendData.orderImage = url;
             this.ms.addOrder(this.sendData);
-            console.log('Executei 2');
             // this.resetForm();
           });
         })

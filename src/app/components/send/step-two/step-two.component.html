@@ -2,32 +2,57 @@
     <!-- stepper -->
     <app-stepper [sendStepper]="_showStepTwo"></app-stepper>
     <div class="row">
-        <p class="col-8 col-md-8 animated zoomIn p-intro p-one mt-5" style="font-size: 16pt; font-weight: 500;"> O que
-            vai enviar? </p>
+        <p class="col-8 col-md-8 animated zoomIn p-intro p-one mt-5" style="font-size: 16pt; font-weight: 500;">
+            O que vai enviar? </p>
         <br /> <br />
     </div>
     <!-- carousel menu -->
     <div class="row justify-content-center">
         <div class="col-8 col-md-8 justify-content-center text-center">
-            <div class="grid" *ngIf="!estadoSelected">
-                <div class="text-center">
-                    <span class="fa fa-chevron-left fa-lg"></span> </div>
-                <div class="scrolling-wrapper mt-3 animated fadeInRight">
-                    <div class="card" *ngFor="let estado of estados" (click)="selectEstado(estado)">
-                        <h6 class="text-center">{{ estado.nome }}</h6>
+
+            <!-- first level -->
+            <div class="grid" *ngIf="!categorySelected">
+                <!-- carousel controllers -->
+                <span class="fa fa-chevron-left fa-2x" (click)="scrollLeft()"></span>
+                <span class="fa fa-chevron-right fa-2x" (click)="scrollRight()"></span>
+
+                <div class="text-center"></div>
+                <div #scrollWrapper class="scrolling-wrapper mt-3 animated fadeInRight">
+                    <div class="card" *ngFor="let c of category" (click)="selectCategory(c)">
+                        <div class="card-img justify-content-center align-items-center text-center">
+                            <img [src]="c.image" width="124" height="150" class="justify-content-center">
+                        </div>
+                        <h6 class="text-center">{{ c.name }}</h6>
                     </div>
                 </div>
-                <div class="text-center"><span class="fa fa-chevron-right fa-lg"></span></div>
             </div>
 
-            <div class="grid" *ngIf="!cidadeSelected && !showButton">
-                <div class="text-center"><span class="fa fa-chevron-left fa-lg"></span></div>
-                    <div class="scrolling-wrapper mt-3 animated fadeInRight">
-                        <div class="card" *ngFor="let cidade of cidades" (click)="fillCity(cidade)">
-                            <h6 class="text-muted text-center">{{ cidade.nome }}</h6>
+            <!-- second level -->
+            <div class="grid" *ngIf="!productSelected && !showButton">
+                <!-- carousel controllers -->
+                <span class="fa fa-chevron-left fa-2x" (click)="scrollLeft()"></span>
+                <span class="fa fa-chevron-right fa-2x" (click)="scrollRight()"></span>
+
+                <div class="text-center"></div>
+                <div #scrollWrapper class="scrolling-wrapper mt-3 animated fadeInRight">
+                    <div class="card" *ngFor="let p of product" (click)="fillProduct(p)">
+                        <div class="card-img justify-content-center align-items-center text-center">
+                            <img [src]="p.image" width="124" height="150" class="justify-content-center">
                         </div>
+                        <h6 class="text-muted text-center">{{ p.name }}</h6>
+                    </div>
                 </div>
-                <div class="text-center"><span class="fa fa-chevron-right fa-lg"></span></div>
+            </div>
+        </div>
+        <!-- added products -->
+        <div class="col-7 col-md-7 justify-content-center" *ngIf="orderSelected">
+            <span class="text-muted" style="font-size: 18pt; font-weight: 600;">Produtos: </span>
+        </div>
+        <div class="col-7 col-md-7" *ngIf="orderSelected">
+            <div class="products alert alert-success">
+                <span *ngFor="let item of categories" class="text-center text-muted">
+                    {{ item + ', ' }}
+                </span>
             </div>
         </div>
     </div>
@@ -36,25 +61,19 @@
     <!-- product details -->
     <form [formGroup]="form" class="form-group mt-3">
 
-        <span class="text-muted">Produtos: </span>
-        <span *ngFor="let item of categories" class="text-center text-muted">
-            {{ item + ', ' }}
-        </span>
-
         <div class="row justify-content-center animated fadeIn">
 
             <!-- order image preview -->
             <div class="text-center">
-                <div class="col-2 col-sm-2 col-md-2 col-lg-2 w-100" *ngIf="!imgSrc; else showPhoto">
-                    <img src="assets/img/placeholder.jpg" width="110" height="90" class="btn btn-light"
-                        (click)="fileInput.click()" />
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2 w-100" *ngIf="imgSrc">
+                    <img [src]="imgSrc" width="110" height="90" class="btn btn-light" (click)="fileInput.click()" />
                     <input type="file" hidden #fileInput formControlName="orderImage" accept="image/*"
                         (change)="handleFile(file = $event.target.files[0])">
                 </div>
 
-                <ng-template #showPhoto>
-                    <img [src]="imgSrc" width="90" height="75" class="img-thumbnail">
-                </ng-template>
+                <!-- <ng-template #showPhoto>
+                        <img [src]="imgSrc" width="110" height="90" class="img-thumbnail">
+                    </ng-template> -->
 
                 <small *ngFor="let validation of validationMsgs.orderImage">
                     <small class="text-danger" *ngIf="form.get('orderImage').errors?.required">{{ validation.message }}
@@ -74,13 +93,13 @@
                 </small>
                 <div class="row mt-2" *ngIf="objectTest !== null && objectTest !== undefined">
                     <div class="col-auto">
-                        <button type="button" class="form-control btn btn-block btn-light" (click)="addCategory()">
-                            <span class="fa fa-plus"></span>
-                            Adicionar outra
+                        <button type="button" class="form-control btn btn-light btn-sm" (click)="addCategory()">
+                            <span class="fas fa-plus-circle"></span>
+                            Adicionar Outra
                         </button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="form-control btn btn-block btn-warning" (click)="removeProduct()">
+                        <button type="button" class="form-control btn btn-warning btn-sm" (click)="removeProduct()">
                             <span class="fas fa-edit"></span>
                             Modificar
                         </button>
@@ -89,7 +108,7 @@
             </div>
         </div>
         <!-- range -->
-        <div class="row justify-content-center animated fadeIn">
+        <div class="row justify-content-center animated fadeIn mb-3">
             <div class="col-8 col-md-8 col-lg-8  text-center">
                 <!-- range images -->
                 <img src="assets/img/range-box.png" alt="" width="60" height="60" class="mr-4 box-align-one">
@@ -99,19 +118,19 @@
             </div>
             <!-- range input -->
             <div class="col-6 col-md-6 col-lg-6">
-                <input class="form-control custom-range" type="range" name="" id="" min="1" max="4" step="0.5"
-                    formControlName="orderSize">
+                <input class="form-control custom-range slider" type="range" name="" id="" min="0" max="4" step="1"
+                    formControlName="orderSize" (input)="valueChange($event)">
             </div>
         </div>
         <!-- label size -->
         <div class="row justify-content-center">
             <div class="col-auto">
-                <label for=""> Pequena: Máx 40kg ou 100cm </label>
+                <label for=""> <strong> {{ size_title }} </strong> {{ size_to_show }} </label>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-auto">
-                <label style="color: #c5c5c5;"> Tamanho de caixa de sapatos </label>
+                <label style="color: #c5c5c5;"> {{ designation }} </label>
             </div>
         </div>
         <!-- button -->
@@ -139,23 +158,24 @@
         <br /> <br />
     </div>
     <!-- product details -->
-    <div class="mt-5">
+    <div class="form-group mt-5">
         <div class="row justify-content-center mb-4">
-            <div class="col-8 col-md-8 mb-4 animated div-delay text-center jumbotron">
-                <img src="assets/img/category-selected.png" width="70" height="60">
+            <div class="col-8 col-md-8 mb-4 animated div-delay text-center"
+                style="background: #f8f9fa; padding: 15px 0 15px 0;">
+                <img [src]="category[objectTest.category].image" width="70" height="60" class="btn btn-light shadow">
                 <!-- category label -->
-                <label class="ml-4 category-label"> {{ sendData.category }} </label>
+                <label class="ml-4 category-label shadow align-items-center alert alert-light my-auto">{{ sendData.category }}</label>
             </div>
         </div>
         <div class="row justify-content-center animated fadeIn">
             <div class="col-2 col-md-2">
                 <!-- product image -->
-                <img src="assets/img/samsung-s10.jpg" width="110" height="90" class="btn btn-light" />
+                <img [src]="imgSrc" width="110" height="90" class="btn btn-light" />
             </div>
             <!-- product to send details -->
             <div class="col-6 col-md-6 mb-4 animated fadeIn div-delay product-to-send alert alert-light">
-                <label><b> {{ sendData.product }}</b></label>
-                <p> S10 novo... </p>
+                <label><b> {{ sendData.product }} </b></label>
+                <p> {{ sendData.orderDetails }} </p>
             </div>
         </div>
         <!-- de => para -->
@@ -186,18 +206,18 @@
             </div>
             <div class="col-6 col-md-6 alert alert-light size-label">
                 <label>Tamanho:
-                    <span class="size-data"> {{ sendData.orderSize }} (Máx 5kg) </span>
+                    <span class="size-data"> {{ sendData.orderSize }} </span>
                 </label>
             </div>
         </div>
         <!-- button -->
         <div class="row justify-content-center mt-5">
-            <div class="col-5 animated div-delay">
+            <div class="col-4 animated div-delay">
                 <button type="button" class="btn-light form-control" (click)="showOtherView()">
                     Voltar
                 </button>
             </div>
-            <div class="col-5 animated div-delay">
+            <div class="col-4 animated div-delay">
                 <button type="submit" class="btn-success form-control" [routerLink]="['/step-three']"
                     (click)="onSubmit()">
                     Confirmar
