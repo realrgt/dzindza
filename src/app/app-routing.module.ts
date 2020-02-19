@@ -10,7 +10,7 @@ import { CarryProductsComponent } from './components/carry/carry-products/carry-
 import { CarrySearchComponent } from './components/carry/carry-search/carry-search.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'intro-step' },
+  { path: '', pathMatch: 'full', redirectTo: '/home' },
 
   // home lazy-loading
   {

@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 // Custom components
@@ -22,8 +23,10 @@ import { CoreModule } from './core/core.module';
     AppComponent,
   ],
   imports: [
+    // angular
     BrowserModule,
     HttpClientModule,
+    // custom
     ComponentsModule,
     ChatModule,
     CoreModule,
@@ -31,9 +34,11 @@ import { CoreModule } from './core/core.module';
 
     // firebase
     AngularFireModule.initializeApp(environment.firebase, 'leeva'),
-    AngularFirestoreModule,
-    AngularFireStorageModule,
+    AngularFirestoreModule,   // database features
+    AngularFireStorageModule, // storage features
+    AngularFireAuthModule,    // auth features
 
+    // routing
     AppRoutingModule,
   ],
   providers: [],
