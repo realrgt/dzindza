@@ -2,6 +2,7 @@ import { PicsPreviewerModule } from './../../../shared/pics-previewer/pics-previ
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // custom imports
 import { RegisterComponent } from './register.component';
@@ -19,9 +20,10 @@ import { CarrierDocsComponent } from './carrier-docs/carrier-docs.component';
     ],
     imports: [
         CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
         HrModule,
-        PicsPreviewerModule,
-        RouterModule
+        PicsPreviewerModule
     ]
 })
 export class RegisterModule { }

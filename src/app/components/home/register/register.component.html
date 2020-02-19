@@ -5,55 +5,77 @@
   </div>
 
   <!-- Circles Init -->
-
   <div class="circles">
     <div class="circle one">
       <div class="circle-icon">
         <i class="far fa-clock fa-2x"></i>
       </div>
-      <!-- .call-out .link -->
     </div>
-    <!-- .call-out -->
 
     <div class="circle two">
       <div class="circle-icon">
         <i class="far fa-money-bill-alt fa-2x"></i>
       </div>
-      <!-- .call-out .link -->
     </div>
-    <!-- .call-out -->
   </div>
-  <!-- .call-outs -->
   <!-- Circles End -->
 
   <!-- Comments init -->
-
   <div class="circles">
     <span class="comment">Trabalhe<br>quando quiser</span>
-    <span class="comment">Trabalhe<br>quanto quiser</span>
+    <span class="comment">Trabalhe<br>o quanto quiser</span>
   </div>
-
   <!-- Comments end -->
 
-  <button class="btn-outline-danger form-control mt-4">Registar com Google</button>
+  <button class="btn-outline-danger form-control mt-4" (click)="googleSignIn()">
+    Registar com Google
+  </button>
 
   <app-hr></app-hr>
 
-  <form>
-    <div class="form-group has-search">
+  <form [formGroup]="form">
+
+    <div class="form-group has-search text-left">
       <span class="fas fa-user form-control-feedback"></span>
-      <input type="text" class="form-control" placeholder="Nome" />
+      <input type="text" class="form-control" placeholder="Nome" formControlName="name" />
+
+      <small *ngFor="let validation of validationMsgs.name">
+        <small class="text-danger"
+          *ngIf="name.hasError(validation.type) && (name.dirty || name.touched)">{{ validation.message }}
+        </small>
+      </small>
+
     </div>
-    <div class="form-group has-search">
+
+    <div class="form-group has-search text-left">
       <span class="fas fa-phone form-control-feedback"></span>
-      <input type="tel" class="form-control" placeholder="Telefone" />
+      <input type="number" class="form-control" placeholder="Telefone" formControlName="phone" />
+
+      <small *ngFor="let validation of validationMsgs.phone">
+        <small class="text-danger"
+          *ngIf="phone.hasError(validation.type) && (phone.dirty || phone.touched)">{{ validation.message }}
+        </small>
+      </small>
+
     </div>
-    <div class="form-group has-search">
+
+    <div class="form-group has-search text-left">
       <span class="fas fa-envelope form-control-feedback"></span>
-      <input type="email" class="form-control" placeholder="Email" />
+      <input type="email" class="form-control" placeholder="Email" formControlName="email" />
+
+      <small *ngFor="let validation of validationMsgs.email">
+        <small class="text-danger"
+          *ngIf="email.hasError(validation.type) && (email.dirty || email.touched)">{{ validation.message }}
+        </small>
+      </small>
+
     </div>
+
     <div class="container row">
-      <button type="button" class="btn btn-success" [routerLink]="['/home/confirm']">Confirmar</button>
+      <button [disabled]="form.invalid" type="button" class="btn btn-success"
+        [routerLink]="['/home/confirm']">Confirmar</button>
     </div>
+
   </form>
+
 </div>

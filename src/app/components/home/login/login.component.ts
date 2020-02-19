@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const formValue = this.form.getRawValue();
     console.log(formValue);
-    this.authService.emailLogin(this.email.value, this.password.value)
+    this.authService.emailSignUp(this.email.value, this.password.value)
       .then(() => {
         this.router.navigate(['/']);
         this.email.setValue(null);
