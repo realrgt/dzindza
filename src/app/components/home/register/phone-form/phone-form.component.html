@@ -1,0 +1,35 @@
+<div class="text-center">
+    <div class="mb-3">
+        <h3>Verifique o seu número de telefone</h3>
+        <p>O Leeva irá enviar te um SMS para verificar o seu contacto. Informe o código do seu país e o seu número.</p>
+    </div>
+
+    <form [formGroup]="form">
+
+        <div class="row">
+            <div class="col-12 form-group has-search text-left">
+                <!-- <span class="fas fa-user form-control-feedback"></span> -->
+                <!-- <input type="text" class="form-control" placeholder="Código" formControlName="code" /> -->
+                <int-phone-prefix [locale]="'en'" formControlName="myPhone"></int-phone-prefix>
+            </div>
+            <div class="col-12 form-group has-search text-left">
+                <span class="fas fa-user form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Telefone" formControlName="phone" />
+
+                <small *ngFor="let validation of validationMsgs.phone">
+                    <small class="text-danger"
+                        *ngIf="phone.hasError(validation.type) && (phone.dirty || phone.touched)">{{ validation.message }}
+                    </small>
+                </small>
+
+            </div>
+        </div>
+
+        <div class="container row">
+            <button [disabled]="form.invalid" type="button" class="btn btn-success"
+                [routerLink]="['/home/confirm']">Confirmar</button>
+        </div>
+
+    </form>
+
+</div>

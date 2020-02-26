@@ -9,6 +9,7 @@ import { CodeConfirmComponent } from './register/code-confirm/code-confirm.compo
 import { CarrierPicsComponent } from './register/carrier-pics/carrier-pics.component';
 import { FilePickerOptionsComponent } from '../../shared/file-picker-options/file-picker-options.component';
 import { CarrierDocsComponent } from './register/carrier-docs/carrier-docs.component';
+import { PhoneFormComponent } from './register/phone-form/phone-form.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'confirm', component: CodeConfirmComponent },
       { path: 'carrier-pics', component: CarrierPicsComponent },
       { path: 'carrier-docs', component: CarrierDocsComponent },
+      { path: 'verify-phone', component: PhoneFormComponent },
       // To be removed
       { path: 'options', component: FilePickerOptionsComponent }
     ]
